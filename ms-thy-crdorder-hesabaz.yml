@@ -32,5 +32,5 @@ spec:
         image: 192.168.10.253:18443/repository/analoglab/ms-thy-crdorder-hesabaz:latest
         imagePullPolicy: Always
         ports:
-        - name: ms-thy-crdorder-hesabaz
+        - name: ms-thy-crdhsbaz
           containerPort: 7003
