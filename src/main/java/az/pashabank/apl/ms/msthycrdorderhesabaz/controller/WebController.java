@@ -12,6 +12,6 @@ public class WebController {
 
     @GetMapping(value = {"","/","/index"})
     public String getIndex(ModelMap model, HttpSession httpSession, Locale locale){
-        return "/";
+        return "index";
     }
 }
