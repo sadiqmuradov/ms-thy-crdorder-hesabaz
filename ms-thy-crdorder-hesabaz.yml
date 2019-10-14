@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ms-thy-crdorder-hesabaz-deploy
+  labels:
+    app: ms-thy-crdorder-hesabaz
+    component: ms-thy-crdorder-hesabaz-deploy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ms-thy-crdorder-hesabaz
+        component: ms-thy-crdorder-hesabaz
+        enabled: "true"
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      hostAliases:
+      - ip: "192.168.151.77"
+        hostnames:
+        - "k8sdmz.pshb.local"
+      - ip: "192.168.10.146"
+        hostnames:
+        - "ufc.pshb.local"
+        - "k8s.pshb.local"
+      - ip: "192.168.110.130"
+        hostnames:
+        - "ufctest.pshb.local"
+      containers:
+      - name: ms-thy-crdorder-hesabaz
+        image: 192.168.10.253:18443/repository/analoglab/ms-thy-crdorder-hesabaz:latest
+        imagePullPolicy: Always
+        ports:
+        - name: ms-thy-crdorder-hesabaz
+          containerPort: 7003
