@@ -1,11 +1,16 @@
 package az.pashabank.apl.ms.msthycrdorderhesabaz.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Setter
@@ -15,6 +20,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "THY_APPLICATIONS_HESABAZ")
 public class ThyApplication {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "THY_APPLICATIONS_HESABAZ_SEQ")
+    @SequenceGenerator(sequenceName = "THY_APPLICATIONS_HESABAZ_SEQ", allocationSize = 1, name = "THY_APPLICATIONS_HESABAZ_SEQ")
+    @JsonIgnore
     private int id;
     private String residency;
     private String nationality;
