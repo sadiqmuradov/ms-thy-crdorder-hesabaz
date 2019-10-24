@@ -1,15 +1,14 @@
 package az.pashabank.apl.ms.msthycrdorderhesabaz.model;
 
-import az.pashabank.apl.ms.msthycrdorderhesabaz.enums.BRStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BaseResponse {
-    private BRStatus status;
-    private String error;
-    private Object data;
+public class newAppStep4CRSAnswersRequest {
+    private List<CRSAnswer> crsAnswers;
 }
