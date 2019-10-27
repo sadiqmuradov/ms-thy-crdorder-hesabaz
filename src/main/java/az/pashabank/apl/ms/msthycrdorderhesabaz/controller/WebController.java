@@ -29,6 +29,12 @@ public class WebController {
         return "index";
     }
 
+    @PostMapping(value = {"/general-info"})
+    public String postGeneralInfo(ModelMap model, HttpSession httpSession, Locale locale){
+        mainService.newApplicationStep1(getMockData());
+        return "index";
+    }
+
     @PostMapping("registerCustomerInThy")
     public String registerCustomerInThy(
             @PathVariable final String lang,
