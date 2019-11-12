@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <title>PashaBank THY Miles & Smiles Card Order | TK Nömrə</title>
+</head>
+<body>
+<div class="container my-5">
+    <h2 class="mb-5 d-flex justify-content-center">TK Nömrə</h2>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <form action="#" th:action="@{/step3}" th:object="${app}" method="post">
+                <div class="row">
+                    <div class="col form-group form-check">
+                        <input type="checkbox" id="tkNoAvailable" th:field="*{tkNoAvailable}" class="form-check-input" th:checked="${isTkNoAvailable}">
+                        <label class="form-check-label" for="tkNoAvailable">Mənim aktiv TK Nömrəm var</label>
+                    </div>
+                </div>
+                <div id="existingTkNoRow" class="row" th:classappend="${!isTkNoAvailable ? 'd-none' : ''}">
+                    <div class="col form-group">
+                        <label>TK Nömrə</label>
+                        <input type="text" th:field="*{tkNo}" class="form-control" placeholder="TK123456789">
+                        <span th:if="${#fields.hasErrors('tkNo')}" th:errors="*{tkNo}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div id="nonExistingTkNoContainer" class="container" th:classappend="${isTkNoAvailable ? 'd-none' : ''}">
+                    <div class="row">
+                        <div class="col">
+                            <h4>Miles&amp;Smiles proqramına qeydiyyatdan keçmək üçün aşağıdakı məlumatları doldurun</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Ad (Xarici passport)</label>
+                            <input type="text" th:field="*{passportName}" class="form-control" placeholder="Adınızı daxil edin">
+                            <span th:if="${#fields.hasErrors('passportName')}" th:errors="*{passportName}" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Soyad (Xarici passport)</label>
+                            <input type="text" th:field="*{passportSurname}" class="form-control" placeholder="Soyadınızı daxil edin">
+                            <span th:if="${#fields.hasErrors('passportSurname')}" th:errors="*{passportSurname}" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Şifrə</label>
+                            <input type="password" th:field="*{password}" class="form-control" placeholder="Şifrənizi təyin edin">
+                            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Təkrar şifrə</label>
+                            <input type="password" th:field="*{passwordRepeat}" class="form-control" placeholder="Şifrənizi təkrar daxil edin">
+                            <span th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-5">
+                        <input type="submit" name="next" class="btn btn-primary float-right" value="İrəli">
+                        <input type="submit" name="back" class="btn btn-danger float-right mr-3" value="Geri">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(function () {
+        $(':checkbox').change(function() {
+            $('#existingTkNoRow').toggleClass('d-none');
+            $('#nonExistingTkNoContainer').toggleClass('d-none');
+        });
+    });
+</script>
+
+</body>
+</html>

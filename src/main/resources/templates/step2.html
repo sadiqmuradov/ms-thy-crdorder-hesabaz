@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <title>PashaBank THY Miles & Smiles Card Order | Ünvan və əlaqə vasitələri</title>
+</head>
+<body>
+<div class="container my-5">
+    <h2 class="mb-5 d-flex justify-content-center">Ünvan və əlaqə vasitələri</h2>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form action="#" th:action="@{/step2}" th:object="${app}" method="post" sty>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Şəhər</label>
+                        <select th:field="*{registrationCity}" class="form-control">
+                            <option value="AZ-ABS">Absheron</option><option value="AZ-AGM">Agdam</option><option value="AZ-AGC">Aghjabedi</option><option value="AZ-AGA">Agstafa</option><option value="AZ-AGU">Aksu</option><option value="AZ-AGS">Aqdash</option><option value="AZ-AST">Astara</option><option value="AZ-BA" selected="selected">Baku</option><option value="AZ-BAL">Balakon</option><option value="AZ-BAR">Barda</option><option value="AZ-BEY">Beylagan</option><option value="AZ-BIL">Bilasuvar</option><option value="AZ-DAS">Dashkasan</option><option value="AZ-FUZ">Fuzuli</option><option value="AZ-GAD">Gadabay</option><option value="AZ-GA">Ganja</option><option value="AZ-GOR">Goranboy</option><option value="AZ-GOY">Goychay</option><option value="AZ-GYG">Goygol</option><option value="AZ-HAC">Hajigabul</option><option value="AZ-XA">Hankendi</option><option value="AZ-IMI">Imishli</option><option value="AZ-ISM">Ismayilly</option><option value="AZ-CAB">Jabrayil</option><option value="AZ-CAL">Jalilabad</option><option value="AZ-KAL">Kalbajar</option><option value="AZ-XAC">Khachmaz</option><option value="AZ-XIZ">Khizy</option><option value="AZ-XCI">Khojali</option><option value="AZ-XVD">Khojavend</option><option value="AZ-SIY">Kisil-burun</option><option value="AZ-QBI">Koubately</option><option value="AZ-KUR">Kurdamir</option><option value="AZ-LAC">Lachin</option><option value="AZ-LAN">Lankaran</option><option value="AZ-LER">Lerik</option><option value="AZ-MAS">Masally</option><option value="AZ-MI">Mingachevir</option><option value="AZ-NA">Naftalan</option><option value="AZ-NX">Nakhchivan</option><option value="AZ-NEF">Neftchala</option><option value="AZ-OGU">Oghuz</option><option value="AZ-QAB">Qabala</option><option value="AZ-QAX">Qakh</option><option value="AZ-QAZ">Qazax</option><option value="AZ-QOB">Qobustan</option><option value="AZ-QBA">Quba</option><option value="AZ-QUS">Qusar</option><option value="AZ-SAT">Saatly</option><option value="AZ-SAB">Sabirabad</option><option value="AZ-SAL">Salyan</option><option value="AZ-SMX">Samukh</option><option value="AZ-SBN">Shabran</option><option value="AZ-SAK">Shaki</option><option value="AZ-SMI">Shamakhi</option><option value="AZ-SKR">Shamkir</option><option value="AZ-SR">Shirvan</option><option value="AZ-SUS">Shusha</option><option value="AZ-SM">Sumqayit</option><option value="AZ-TAR">Tartar</option><option value="AZ-TOV">Tovuz</option><option value="AZ-UCA">Ucar</option><option value="AZ-YAR">Yardymly</option><option value="AZ-YEV">Yevlakh</option><option value="AZ-ZAN">Zangilan</option><option value="AZ-ZAQ">Zaqatala</option><option value="AZ-ZAR">Zardab</option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('registrationCity')}" th:errors="*{registrationCity}" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Mobil nömrə</label>
+                        <input type="text" th:field="*{mobileNumber}" class="form-control" placeholder="+994xxxxxxxxx">
+                        <span th:if="${#fields.hasErrors('mobileNumber')}" th:errors="*{mobileNumber}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Qeydiyyat ünvanı</label>
+                        <input type="text" th:field="*{registrationAddress}" class="form-control"
+                               placeholder="Qeydiyyat ünvanınızı daxil edin">
+                        <span th:if="${#fields.hasErrors('registrationAddress')}"
+                              th:errors="*{registrationAddress}" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>E-poçt ünvanı</label>
+                        <input type="email" th:field="*{email}" class="form-control" placeholder="Elektron ünvanınızı qeyd edin">
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col form-group form-check">
+                        <input type="checkbox" id="domicileSame" th:field="*{domicileSame}" class="form-check-input" th:checked="${isDomicileSame}">
+                        <label class="form-check-label" for="domicileSame">Faktiki ünvan qeydiyyat ünvan ilə eynidir</label>
+                    </div>
+                </div>
+                <div id="checkRow" class="row" th:classappend="${isDomicileSame ? 'd-none' : ''}">
+                    <div class="col form-group">
+                        <label>Faktiki ünvan</label>
+                        <input type="text" th:field="*{domicileAddress}" class="form-control"
+                               placeholder="Faktiki ünvanınızı daxil edin">
+                        <span th:if="${#fields.hasErrors('domicileAddress')}"
+                              th:errors="*{domicileAddress}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-5">
+                        <input type="submit" name="next" class="btn btn-primary float-right" value="İrəli">
+                        <input type="submit" name="back" class="btn btn-danger float-right mr-3" value="Geri">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(function () {
+        $(':checkbox').change(function() {
+            $('#checkRow').toggleClass('d-none');
+        });
+    });
+</script>
+</body>
+</html>
