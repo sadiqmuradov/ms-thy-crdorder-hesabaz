@@ -6,7 +6,6 @@ import az.pashabank.apl.ms.model.thy.RegisterCustomerInThyRequest;
 import az.pashabank.apl.ms.service.MainServiceImpl;
 import az.pashabank.apl.ms.validator.ThyApplicationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.Locale;
 
 @Controller
@@ -25,8 +23,8 @@ public class WebController {
 
     private static final MainLogger LOGGER = MainLogger.getLogger(WebController.class);;
 
-    @Value("${ankets.count}")
-    protected int anketsCount;
+//    @Value("${ankets.count}")
+//    protected int anketsCount;
 
     @Autowired
     private MainServiceImpl mainService;

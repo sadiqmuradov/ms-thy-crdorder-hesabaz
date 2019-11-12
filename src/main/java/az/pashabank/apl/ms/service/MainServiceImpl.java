@@ -17,5 +17,6 @@ public class MainServiceImpl implements MainService {
 
     public void deleteApplication(int appId) {
         repositories.getThyApplicationRepo().deleteById(appId);
+        // delete olmali deyil ancaq update
     }
 }
