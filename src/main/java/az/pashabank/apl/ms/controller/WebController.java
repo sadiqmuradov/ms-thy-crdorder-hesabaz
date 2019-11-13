@@ -1,5 +1,6 @@
 package az.pashabank.apl.ms.controller;
 
+import az.pashabank.apl.ms.entity.CRSQuestion;
 import az.pashabank.apl.ms.entity.City;
 import az.pashabank.apl.ms.entity.Country;
 import az.pashabank.apl.ms.entity.ThyApplication;
@@ -32,36 +33,30 @@ public class WebController {
     @Autowired
     ThyApplicationValidator validator;
 
-    private Model reloadStep1(Model model, Locale locale) {
+    @GetMapping(value = {"", "/", "/index", "/step1"})
+    public String showStep1(Model model, @ModelAttribute("app") ThyApplication app, HttpSession httpSession, Locale locale) {
+        if (httpSession.getAttribute("sessionApp") != null) {
+            app = (ThyApplication) httpSession.getAttribute("sessionApp");
+        }
+        reloadStep1(model, locale);
+        return "index";
+    }
+
+    private void reloadStep1(Model model, Locale locale) {
         model.addAttribute("lcl", locale.getLanguage());
         List<Country> countryList = mainService.getCountryList(locale.getLanguage());
         model.addAttribute("countryList", countryList);
-        return model;
-    }
-
-    private Model reloadStep2(Model model, Locale locale, ThyApplication app) {
-        model.addAttribute("lcl", locale.getLanguage());
-        List<City> cityList = mainService.getCityList(app.getNationality());
-        model.addAttribute("cityList", cityList);
-        app.setDomicileSame(true);
-        model.addAttribute("isDomicileSame", app.isDomicileSame());
-        return model;
-    }
-
-    @GetMapping(value = {"", "/", "/index", "/step1"})
-    public String showStep1(Model model, @ModelAttribute("app") ThyApplication app, Locale locale) {
-        model = reloadStep1(model, locale);
-        return "index";
     }
 
     @PostMapping("/index")
     public String postStep1(Model model, @ModelAttribute("app") ThyApplication app, BindingResult result, HttpSession httpSession, Locale locale) {
         validator.validateStep1(app, result);
         if (result.hasErrors()) {
-            model = reloadStep1(model, locale);
+            reloadStep1(model, locale);
             return "index";
         }
-        app = mainService.saveApplication(app);
+        app.setStep(1);
+        mainService.saveApplication(app);
         httpSession.setAttribute("sessionApp", app);
         return "redirect:/step2";
     }
@@ -69,47 +64,57 @@ public class WebController {
     @GetMapping("/step2")
     public String showStep2(Model model, @ModelAttribute("app") ThyApplication app, HttpSession httpSession, Locale locale) {
         if (httpSession.getAttribute("sessionApp") == null) {
-            model = reloadStep1(model, locale);
+            reloadStep1(model, locale);
             return "index";
-        } else {
-            app = (ThyApplication) httpSession.getAttribute("sessionApp");
-            model = reloadStep2(model, locale, app);
-            return "step2";
         }
+        app = (ThyApplication) httpSession.getAttribute("sessionApp");
+        reloadStep2(model, locale, app);
+        return "step2";
+    }
+
+    private void reloadStep2(Model model, Locale locale, ThyApplication app) {
+        model.addAttribute("lcl", locale.getLanguage());
+        List<City> cityList = mainService.getCityList(app.getNationality());
+        model.addAttribute("cityList", cityList);
+        app.setDomicileSame(app.getStep() < 2 ? true : app.isDomicileSame());
+        model.addAttribute("isDomicileSame", app.isDomicileSame());
     }
 
     @PostMapping(value = "/step2", params = {"next"})
     public String postStep2(Model model, @ModelAttribute("app") ThyApplication app, BindingResult result, HttpSession httpSession, Locale locale) {
         if (httpSession.getAttribute("sessionApp") == null) {
-            model = reloadStep1(model, locale);
+            reloadStep1(model, locale);
             return "index";
-        } else {
-            validator.validateStep2(app, result);
-            ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
-            if (result.hasErrors()) {
-                model = reloadStep2(model, locale, sessionApp);
-                return "step2";
-            } else {
-                sessionApp.setRegistrationCity(app.getRegistrationCity());
-                sessionApp.setRegistrationAddress(app.getRegistrationAddress());
-                sessionApp.setMobileNumber(app.getMobileNumber());
-                sessionApp.setEmail(app.getEmail());
-                sessionApp.setDomicileSame(app.isDomicileSame());
-                sessionApp.setDomicileAddress(app.getDomicileAddress());
-                System.out.println(sessionApp);
-                sessionApp = mainService.saveApplication(sessionApp);
-                httpSession.setAttribute("sessionApp", sessionApp);
-                model.addAttribute("lcl", locale.getLanguage());
-                return "redirect:/step3";
-            }
         }
+        validator.validateStep2(app, result);
+        ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
+        if (result.hasErrors()) {
+            reloadStep2(model, locale, sessionApp);
+            return "step2";
+        }
+        setStep2SessionAppInfo(app, sessionApp);
+        sessionApp.setStep(2);
+        mainService.saveApplication(sessionApp);
+        httpSession.setAttribute("sessionApp", sessionApp);
+        model.addAttribute("lcl", locale.getLanguage());
+        return "redirect:/step3";
+    }
+
+    private void setStep2SessionAppInfo(ThyApplication app, ThyApplication sessionApp) {
+        sessionApp.setRegistrationCity(app.getRegistrationCity());
+        sessionApp.setRegistrationAddress(app.getRegistrationAddress());
+        sessionApp.setMobileNumber(app.getMobileNumber());
+        sessionApp.setEmail(app.getEmail());
+        sessionApp.setDomicileSame(app.isDomicileSame());
+        sessionApp.setDomicileAddress(app.getDomicileAddress());
     }
 
     @PostMapping(value = "/step2", params = {"back"})
-    public String postStep2Back(HttpSession httpSession) {
+    public String postStep2Back(@ModelAttribute("app") ThyApplication app, HttpSession httpSession) {
         if (httpSession.getAttribute("sessionApp") != null) {
             ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
-            httpSession.removeAttribute("sessionApp");
+            setStep2SessionAppInfo(app, sessionApp);
+            httpSession.setAttribute("sessionApp", sessionApp);
         }
         return "redirect:/index";
     }
@@ -117,104 +122,108 @@ public class WebController {
     @GetMapping("/step3")
     public String showStep3(Model model, @ModelAttribute("app") ThyApplication app, HttpSession httpSession, Locale locale) {
         if (httpSession.getAttribute("sessionApp") == null) {
-            model = reloadStep1(model, locale);
+            reloadStep1(model, locale);
             return "index";
-        } else {
-            ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
-            model.addAttribute("lcl", locale.getLanguage());
-            app.setTkNoAvailable(true);
-            model.addAttribute("isTkNoAvailable", true);
-            return "step3";
         }
+        app = (ThyApplication) httpSession.getAttribute("sessionApp");
+        model.addAttribute("lcl", locale.getLanguage());
+        app.setTkNoAvailable(app.getStep() < 3 ? true : app.isTkNoAvailable());
+        model.addAttribute("isTkNoAvailable", app.isTkNoAvailable());
+        return "step3";
     }
 
     @PostMapping(value = "/step3", params = {"next"})
     public String postStep3(Model model, @ModelAttribute("app") ThyApplication app, BindingResult result, HttpSession httpSession, Locale locale) {
         if (httpSession.getAttribute("sessionApp") == null) {
-            model = reloadStep1(model, locale);
+            reloadStep1(model, locale);
             return "index";
-        } else {
-            ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
-            if (!app.isTkNoAvailable() && sessionApp != null) {
-                app.setBirthDate(sessionApp.getBirthDate());
-                app.setMobileNumber(sessionApp.getMobileNumber());
-                app.setEmail(sessionApp.getEmail());
-                app.setNationality(sessionApp.getNationality());
-                app.setGender(sessionApp.getGender());
-            }
-            validator.validateStep3(app, result);
-            if (result.hasErrors()) {
-                model.addAttribute("lcl", locale.getLanguage());
-                model.addAttribute("isTkNoAvailable", app.isTkNoAvailable());
-                return "step3";
-            }
-            sessionApp.setTkNoAvailable(app.isTkNoAvailable());
-            sessionApp.setTkNo(app.getTkNo());
-            sessionApp.setPassportName(app.getPassportName());
-            sessionApp.setPassportSurname(app.getPassportSurname());
-            sessionApp = mainService.saveApplication(sessionApp);
-            httpSession.setAttribute("sessionApp", sessionApp);
-            return "redirect:/step4";
         }
+        ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
+        if (!app.isTkNoAvailable() && sessionApp != null) {
+            app.setBirthDate(sessionApp.getBirthDate());
+            app.setMobileNumber(sessionApp.getMobileNumber());
+            app.setEmail(sessionApp.getEmail());
+            app.setNationality(sessionApp.getNationality());
+            app.setGender(sessionApp.getGender());
+        }
+        validator.validateStep3(app, result);
+        if (result.hasErrors()) {
+            model.addAttribute("lcl", locale.getLanguage());
+            model.addAttribute("isTkNoAvailable", app.isTkNoAvailable());
+            return "step3";
+        }
+        setStep3SessionAppInfo(app, sessionApp);
+        sessionApp.setStep(3);
+        mainService.saveApplication(sessionApp);
+        httpSession.setAttribute("sessionApp", sessionApp);
+        return "redirect:/step4";
+    }
+
+    private void setStep3SessionAppInfo(ThyApplication app, ThyApplication sessionApp) {
+        sessionApp.setTkNoAvailable(app.isTkNoAvailable());
+        sessionApp.setTkNo(app.getTkNo());
+        sessionApp.setPassportName(app.getPassportName());
+        sessionApp.setPassportSurname(app.getPassportSurname());
     }
 
     @PostMapping(value = "/step3", params = {"back"})
-    public String postStep3Back(HttpSession httpSession) {
+    public String postStep3Back(@ModelAttribute("app") ThyApplication app, HttpSession httpSession) {
         if (httpSession.getAttribute("sessionApp") != null) {
             ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
-            httpSession.removeAttribute("sessionApp");
+            setStep3SessionAppInfo(app, sessionApp);
+            httpSession.setAttribute("sessionApp", sessionApp);
         }
-        return "redirect:/index";
+        return "redirect:/step2";
     }
 
     @GetMapping("/step4")
     public String showStep4(Model model, @ModelAttribute("app") ThyApplication app, HttpSession httpSession, Locale locale) {
-        model.addAttribute("lcl", locale.getLanguage());
         if (httpSession.getAttribute("sessionApp") == null) {
-            model = reloadStep1(model, locale);
+            reloadStep1(model, locale);
             return "index";
-        } else {
-            return "step4";
         }
+        model.addAttribute("lcl", locale.getLanguage());
+        return "step4";
     }
 
     @PostMapping(value = "/step4", params = {"next"})
     public String postStep4(Model model, @ModelAttribute("app") ThyApplication app, BindingResult result, HttpSession httpSession, Locale locale) {
+        ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
+        if (sessionApp == null) {
+            reloadStep1(model, locale);
+            return "index";
+        }
         validator.validateStep4(app, result);
         if (result.hasErrors()) {
             model.addAttribute("lcl", locale.getLanguage());
             return "step4";
         }
-        ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
-        if (sessionApp != null) {
-            sessionApp.setUploadWrappers(app.getUploadWrappers());
-            sessionApp = mainService.saveApplication(sessionApp);
-            httpSession.setAttribute("sessionApp", sessionApp);
-            return "redirect:/step5";
-        } else {
-            model = reloadStep1(model, locale);
-            return "redirect:/index";
-        }
+        sessionApp.setUploadWrappers(app.getUploadWrappers());
+        sessionApp.setStep(4);
+        mainService.saveApplication(sessionApp);
+        httpSession.setAttribute("sessionApp", sessionApp);
+        return "redirect:/step5";
     }
 
     @PostMapping(value = "/step4", params = {"back"})
     public String postStep4Back(HttpSession httpSession) {
-        if (httpSession.getAttribute("sessionApp") != null) {
-            ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
-            httpSession.removeAttribute("sessionApp");
-        }
-        return "redirect:/index";
+        return "redirect:/step3";
     }
 
     @GetMapping("/step5")
     public String showStep5(Model model, @ModelAttribute("app") ThyApplication app, HttpSession httpSession, Locale locale) {
-        model.addAttribute("lcl", locale.getLanguage());
-        if (httpSession.getAttribute("sessionApp") == null) {
-            model = reloadStep1(model, locale);
+        /*if (httpSession.getAttribute("sessionApp") == null) {
+            reloadStep1(model, locale);
             return "index";
-        } else {
-            return "step5";
-        }
+        }*/
+        reloadStep5(model, locale);
+        return "step5";
+    }
+
+    private void reloadStep5(Model model, Locale locale) {
+        model.addAttribute("lcl", locale.getLanguage());
+        List<CRSQuestion> crsQuestionsList = mainService.getCRSQuestionList(locale.getLanguage());
+        model.addAttribute("crsQuestionList", crsQuestionsList);
     }
 
     @PostMapping(value = "/step5", params = {"next"})
@@ -272,7 +281,7 @@ public class WebController {
             model.addAttribute("sessionApp", sessionApp);
             return "submit";
         } else {
-            model = reloadStep1(model, locale);
+            reloadStep1(model, locale);
             return "redirect:/index";
         }
     }

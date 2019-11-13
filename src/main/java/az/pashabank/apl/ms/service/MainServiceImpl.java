@@ -1,5 +1,6 @@
 package az.pashabank.apl.ms.service;
 
+import az.pashabank.apl.ms.entity.CRSQuestion;
 import az.pashabank.apl.ms.entity.City;
 import az.pashabank.apl.ms.entity.Country;
 import az.pashabank.apl.ms.entity.ThyApplication;
@@ -24,11 +25,15 @@ public class MainServiceImpl implements MainService {
         // delete olmali deyil ancaq update
     }
 
-    public List<Country> getCountryList(String lang){
+    public List<Country> getCountryList(String lang) {
         return repositories.getCountryRepo().findAllByLangIgnoreCaseOrderByName(lang);
     }
 
-    public List<City> getCityList(String countryCode){
+    public List<City> getCityList(String countryCode) {
         return repositories.getCityRepo().findAllByCountryCodeIgnoreCaseOrderByName(countryCode);
+    }
+
+    public List<CRSQuestion> getCRSQuestionList(String lang) {
+        return repositories.getCrsQuestionRepo().findAllByLang(lang.toLowerCase());
     }
 }

@@ -9,136 +9,83 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">-->
-<!--    <link rel="stylesheet" href="../static/assets/css/shards.min.css">-->
 
-    <title>Add User</title>
+    <title>PashaBank THY Miles & Smiles Card Order | Anket məlumatları</title>
 </head>
 <body>
 <div class="container my-5">
-    <h2 class="mb-5 d-flex justify-content-center">Şəxsi məlumat</h2>
+    <h2 class="mb-5 d-flex justify-content-center">Anket məlumatları</h2>
     <div class="row">
-        <div class="col d-flex justify-content-center">
-            <form action="#" th:action="@{/index}" th:object="${app}" method="post">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10" style="text-align:center">
-                            <h5>
-                                <spring:message
-                                        code="label.index.anket_information"/>
-                            </h5>
-                        </div>
-                        <div class="col-md-1"></div>
-                    </div>
-                </div>
-                    <c:forEach var="i" begin="1" end="${ankets_count}">
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                                    <span class="anket-label">
-                                                        <span>${i}.</span> <spring:message
-                                                            code="anket.question${i}"/>
-                                                    </span>
-                                <div class="row">
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-11">
-                                        <label style="margin-top: 10px;">
-                                            <form:radiobutton
-                                                    path="anketAnswers[${i-1}]"
-                                                    value="1"
-                                                    onchange="$('#txtDescQues${i}').css('display', 'inline');"/>
-                                            <spring:message
-                                                    code="anket.answer.yes"/>
-                                        </label>
-                                        <spring:message
-                                                code="anket.answer.desc${i}"
-                                                var="message"/>
-                                        <c:if test="${not empty message}">
-                                            <label id="txtDescQues${i}"
-                                                   style="display:
-                                                                       <c:choose>
-                                                                       <c:when test="${anketAnswers[i-1] eq 1}">inline</c:when>
-                                            <c:otherwise>none</c:otherwise>
-                                            </c:choose>; margin-left: 15px">
-                                            <br/>
-                                            <spring:message
-                                                    code="anket.answer.desc${i}"/>:
-                                            <br/>
-                                            <form:input
-                                                    path="anketDescs[${i-1}]"
-                                                    class="form-control"
-                                                    style="width: 100%; margin-left: 15px;"
-                                                    value="" maxlength="500"
-                                                    type="text"/>
-                                            <br/>
-                                            </label>
-                                        </c:if>
-                                        <br/>
-                                        <label>
-                                            <form:radiobutton
-                                                    path="anketAnswers[${i-1}]"
-                                                    value="2"
-                                                    onchange="$('#txtDescQues${i}').css('display', 'none');"/>
-                                            <spring:message
-                                                    code="anket.answer.no"/>
-                                        </label>
-                                    </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-8 d-flex justify-content-center">
+            <form action="#" th:action="@{/step5}" th:object="${app}" method="post">
+                <div class="row" th:each="crsQuestion, iStat : ${crsQuestionList}">
+                    <div class="col">
+                        <label>
+                            <span th:text="${iStat.index + 1} + '.'"></span>
+                            <span th:text="${crsQuestion.question}"></span>
+                        </label>
+                        <div class="row">
+                            <div class="col form-group">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" th:field="*{anketAnswers[__${iStat.index}__]}" value="1"
+                                           th:onchange="|toggleAnketDesc(${iStat.index + 1}, 'show')|">
+                                    <label class="form-check-label">Bəli</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" th:field="*{anketAnswers[__${iStat.index}__]}" value="2"
+                                           th:onchange="|toggleAnketDesc(${iStat.index + 1}, 'hide')|">
+                                    <label class="form-check-label">Xeyr</label>
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>
-
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <p class="check-agreement-p font-size-11">
-                                <form:checkbox cssClass="check-agreement"
-                                               path="acceptedTerms"/> &nbsp;
-                                <spring:message
-                                        code="label.index.agreement"/>
-                            </p>
-                            <p class="check-agreement-p font-size-11">
-                                <form:checkbox cssClass="check-agreement"
-                                               path="acceptedGSA"/> &nbsp;
-                                <spring:message
-                                        code="label.index.accepted_gsa"/>.
-                                <a href="https://www.pashabank.az/gsa/lang,${lang}/"
-                                   target="_blank">
-                                    <spring:message
-                                            code="label.index.link_gsa"/>
-                                </a>
-                            </p>
-                            <p class="check-agreement-p font-size-11" style="display: none">
-                                <form:checkbox cssClass="check-agreement"
-                                               path="acceptedOtherCustomers"/> &nbsp;
-                                <spring:message
-                                        code="label.index.accepted_other_customers"/>
-                            </p>
+                        <div class="row d-none" th:id="'anketDescs' + ${iStat.index + 1}">
+                            <div class="col form-group" th:if="${!#strings.isEmpty(crsQuestion.addquestion)}">
+                                <label th:text="${crsQuestion.addquestion}"></label>
+                                <input type="text" th:field="*{anketDescs[__${iStat.index}__]}" class="form-control">
+                                <span th:if="${#fields.hasErrors('anketDescs[__${iStat.index}__]')}" th:errors="*{anketDescs[__${iStat.index}__]}" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-6 text-left">
-                            <button data-tab="profile"
-                                    class="btn btn-green btn-tab-locate min-width-100">
-                                <spring:message
-                                        code="label.index.page.previous"/>
-                            </button>
-                        </div>
-                        <div class="col-sm-6 text-right">
-                            <button type="submit" id="btnDebitSubmit"
-                                    class="btn btn-green min-width-100 pull-right">
-                                <spring:message code="label.index.submit"/>
-                            </button>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col form-group form-check">
+                        <input type="checkbox" id="acceptedTerms" th:field="*{acceptedTerms}" class="form-check-input">
+                        <label for="acceptedTerms" class="form-check-label" th:text="#{label.step5.agreement_terms}"></label>
                     </div>
-                <!-- POLL END -->
+                </div>
+                <div class="row">
+                    <div class="col form-group form-check">
+                        <input type="checkbox" id="acceptedGsa" th:field="*{acceptedGsa}" class="form-check-input">
+                        <label for="acceptedGsa" class="form-check-label" th:text="#{label.step5.agreement_gsa}"></label>
+                        <a class="form-check-label" href="https://www.pashabank.az/gsa/lang,${lang}/" target="_blank" th:text="#{label.step5.link_gsa}"></a>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col mt-5">
-                        <input type="submit" class="btn btn-primary float-right" value="İrəli">
+                        <input type="submit" name="next" class="btn btn-primary float-right" value="İrəli">
+                        <input type="submit" name="back" class="btn btn-danger float-right mr-3" value="Geri">
                     </div>
                 </div>
             </form>
         </div>
+        <div class="col-md-2"></div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+<script>
+    function toggleAnketDesc(idx, ind) {
+        if (ind === 'show') {
+            $('#anketDescs' + idx).removeClass('d-none');
+        } else {
+            $('#anketDescs' + idx).addClass('d-none');
+        }
+    };
+</script>
+
 </body>
 </html>

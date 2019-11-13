@@ -2,21 +2,20 @@ package az.pashabank.apl.ms.entity;
 
 import az.pashabank.apl.ms.model.UploadWrapper;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotBlank;
 import java.sql.Date;
 import java.util.List;
 
@@ -90,6 +89,8 @@ public class ThyApplication {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "app")
 //    @JoinColumn(name = "app_id", referencedColumnName = "app_id")
     private List<CRSAnswer> crsAnswers;
+    @Column(nullable = true)
+    private int step;
 
     public ThyApplication() {
         this.anketAnswers = new Integer[100];
