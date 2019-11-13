@@ -230,7 +230,7 @@ public class WebController {
     public String postStep5(Model model, @ModelAttribute("app") ThyApplication app, BindingResult result, HttpSession httpSession, Locale locale) {
         validator.validateStep5(app, result);
         if (result.hasErrors()) {
-            model.addAttribute("lcl", locale.getLanguage());
+            reloadStep5(model, locale);
             return "step5";
         }
         ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
