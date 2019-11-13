@@ -1,8 +1,13 @@
 package az.pashabank.apl.ms.service;
 
+import az.pashabank.apl.ms.entity.City;
+import az.pashabank.apl.ms.entity.Country;
 import az.pashabank.apl.ms.entity.ThyApplication;
 
-public interface MainService {
+import java.util.List;
 
-    void saveApplication(ThyApplication thyApplication);
+public interface MainService {
+    ThyApplication saveApplication(ThyApplication thyApplication);
+    List<Country> getCountryList(String lang);
+    List<City> getCityList(String countryCode);
 }

@@ -25,4 +25,10 @@ public class Repositories {
 
     @Autowired
     private CRSQuestionRepo crsQuestionRepo;
+
+    @Autowired
+    private CountryRepo countryRepo;
+
+    @Autowired
+    private CityRepo cityRepo;
 }
