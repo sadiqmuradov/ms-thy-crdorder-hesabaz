@@ -89,18 +89,19 @@ public class WebController {
             if (result.hasErrors()) {
                 model = reloadStep2(model, locale, sessionApp);
                 return "step2";
+            } else {
+                sessionApp.setRegistrationCity(app.getRegistrationCity());
+                sessionApp.setRegistrationAddress(app.getRegistrationAddress());
+                sessionApp.setMobileNumber(app.getMobileNumber());
+                sessionApp.setEmail(app.getEmail());
+                sessionApp.setDomicileSame(app.isDomicileSame());
+                sessionApp.setDomicileAddress(app.getDomicileAddress());
+                System.out.println(sessionApp);
+                sessionApp = mainService.saveApplication(sessionApp);
+                httpSession.setAttribute("sessionApp", sessionApp);
+                model.addAttribute("lcl", locale.getLanguage());
+                return "redirect:/step3";
             }
-            sessionApp.setRegistrationCity(app.getRegistrationCity());
-            sessionApp.setRegistrationAddress(app.getRegistrationAddress());
-            sessionApp.setMobileNumber(app.getMobileNumber());
-            sessionApp.setEmail(app.getEmail());
-            sessionApp.setDomicileSame(app.isDomicileSame());
-            sessionApp.setDomicileAddress(app.getDomicileAddress());
-            System.out.println(sessionApp);
-            sessionApp = mainService.saveApplication(sessionApp);
-            httpSession.setAttribute("sessionApp", sessionApp);
-            return "redirect:/step3";
-
         }
     }
 
@@ -108,19 +109,19 @@ public class WebController {
     public String postStep2Back(HttpSession httpSession) {
         if (httpSession.getAttribute("sessionApp") != null) {
             ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
-            httpSession.removeAttribute("step2");
+            httpSession.removeAttribute("sessionApp");
         }
         return "redirect:/index";
     }
 
     @GetMapping("/step3")
     public String showStep3(Model model, @ModelAttribute("app") ThyApplication app, HttpSession httpSession, Locale locale) {
-        model.addAttribute("lcl", locale.getLanguage());
         if (httpSession.getAttribute("sessionApp") == null) {
             model = reloadStep1(model, locale);
             return "index";
         } else {
             ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
+            model.addAttribute("lcl", locale.getLanguage());
             app.setTkNoAvailable(true);
             model.addAttribute("isTkNoAvailable", true);
             return "step3";
@@ -129,21 +130,24 @@ public class WebController {
 
     @PostMapping(value = "/step3", params = {"next"})
     public String postStep3(Model model, @ModelAttribute("app") ThyApplication app, BindingResult result, HttpSession httpSession, Locale locale) {
-        ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
-        if (!app.isTkNoAvailable() && sessionApp != null) {
-            app.setBirthDate(sessionApp.getBirthDate());
-            app.setMobileNumber(sessionApp.getMobileNumber());
-            app.setEmail(sessionApp.getEmail());
-            app.setNationality(sessionApp.getNationality());
-            app.setGender(sessionApp.getGender());
-        }
-        validator.validateStep3(app, result);
-        if (result.hasErrors()) {
-            model.addAttribute("lcl", locale.getLanguage());
-            model.addAttribute("isTkNoAvailable", app.isTkNoAvailable());
-            return "step3";
-        }
-        if (sessionApp != null) {
+        if (httpSession.getAttribute("sessionApp") == null) {
+            model = reloadStep1(model, locale);
+            return "index";
+        } else {
+            ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
+            if (!app.isTkNoAvailable() && sessionApp != null) {
+                app.setBirthDate(sessionApp.getBirthDate());
+                app.setMobileNumber(sessionApp.getMobileNumber());
+                app.setEmail(sessionApp.getEmail());
+                app.setNationality(sessionApp.getNationality());
+                app.setGender(sessionApp.getGender());
+            }
+            validator.validateStep3(app, result);
+            if (result.hasErrors()) {
+                model.addAttribute("lcl", locale.getLanguage());
+                model.addAttribute("isTkNoAvailable", app.isTkNoAvailable());
+                return "step3";
+            }
             sessionApp.setTkNoAvailable(app.isTkNoAvailable());
             sessionApp.setTkNo(app.getTkNo());
             sessionApp.setPassportName(app.getPassportName());
@@ -151,9 +155,6 @@ public class WebController {
             sessionApp = mainService.saveApplication(sessionApp);
             httpSession.setAttribute("sessionApp", sessionApp);
             return "redirect:/step4";
-        } else {
-            model = reloadStep1(model, locale);
-            return "redirect:/index";
         }
     }
 
