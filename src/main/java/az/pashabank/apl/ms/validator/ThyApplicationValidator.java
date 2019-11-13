@@ -2,10 +2,11 @@ package az.pashabank.apl.ms.validator;
 
 import az.pashabank.apl.ms.constants.Regex;
 import az.pashabank.apl.ms.entity.Branch;
+import az.pashabank.apl.ms.entity.CRSAnswer;
+import az.pashabank.apl.ms.entity.CRSQuestion;
 import az.pashabank.apl.ms.entity.CardProduct;
 import az.pashabank.apl.ms.entity.ThyApplication;
 import az.pashabank.apl.ms.logger.MainLogger;
-import az.pashabank.apl.ms.entity.CRSAnswer;
 import az.pashabank.apl.ms.model.UploadWrapper;
 import az.pashabank.apl.ms.model.thy.CheckTkRequest;
 import az.pashabank.apl.ms.model.thy.CheckTkRestResponse;
@@ -44,7 +45,6 @@ public class ThyApplicationValidator {
     @Value("${upload.folder.thy_applications}")
     protected String uploadFolder;
 
-    @Value("${upload.folder.thy_applications}")
     public void createUploadFolder(String uploadFolder) {
         try {
             Path uploadFolderPath = Paths.get(uploadFolder);
@@ -55,9 +55,6 @@ public class ThyApplicationValidator {
             LOGGER.error(e.getMessage());
         }
     }
-
-    @Value("${ankets.count}")
-    protected int anketsCount;
 
     @Autowired
     private ThyServiceProxy thyServiceProxy;
@@ -359,7 +356,8 @@ public class ThyApplicationValidator {
     }
 
     private void validateAnketData(@NotNull ThyApplication app, Errors errors) {
-        for (int i = 0; i < anketsCount; i++) {
+        List<CRSQuestion>  crsQuestionList = repositories.getCrsQuestionRepo().findAllByLang("az");
+        for (int i = 0; i < crsQuestionList.size(); i++) {
             if (!areAnswerAndDescVerified(app.getAnketAnswers()[i], app.getAnketDescs()[i], errors))
                 break;
         }
@@ -381,8 +379,10 @@ public class ThyApplicationValidator {
     }
 
     private void fillCrsAnswers(ThyApplication app) {
+        List<CRSQuestion>  crsQuestionList = repositories.getCrsQuestionRepo().findAllByLang("az");
+
         List<CRSAnswer> crsAnswers = new ArrayList<>();
-        for (int i = 0; i < anketsCount; i++) {
+        for (int i = 0; i < crsQuestionList.size(); i++) {
             CRSAnswer crsAnswer = new CRSAnswer();
             crsAnswer.setQuestionId(i + 1);
             crsAnswer.setAnswer(app.getAnketAnswers()[i]);
