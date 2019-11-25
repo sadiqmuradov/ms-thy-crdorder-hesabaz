@@ -1,5 +1,6 @@
 package az.pashabank.apl.ms.utils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Random;
@@ -23,6 +24,14 @@ public class Utils {
 
         // this will convert any number sequence into 6 character.
         return String.format("%06d", number);
+    }
+
+    public static final String getIpAddress(HttpServletRequest request) {
+        String ipAddress = request.getHeader("X-Forwarded-For");
+        if(ipAddress == null) {
+            ipAddress = request.getRemoteAddr();
+        }
+        return ipAddress;
     }
 
 }

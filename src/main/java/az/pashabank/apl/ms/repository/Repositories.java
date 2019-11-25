@@ -21,6 +21,12 @@ public class Repositories {
     private CardProductRepo cardProductRepo;
 
     @Autowired
+    private CardPriceRepo cardPriceRepo;
+
+    @Autowired
+    private CouponCodeRepo couponCodeRepo;
+
+    @Autowired
     private BranchRepo branchRepo;
 
     @Autowired
@@ -31,4 +37,8 @@ public class Repositories {
 
     @Autowired
     private CityRepo cityRepo;
+
+    @Autowired
+    private PaymentRepo paymentRepo;
+
 }

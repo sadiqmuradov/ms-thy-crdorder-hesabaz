@@ -1,6 +1,5 @@
-package az.pashabank.apl.ms.model;
+package az.pashabank.apl.ms.entity;
 
-import az.pashabank.apl.ms.entity.ThyApplication;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.StringJoiner;
 
 @Data
 @AllArgsConstructor
@@ -38,4 +38,14 @@ public class UploadWrapper {
 //    @JsonIgnore
     private ThyApplication app;
 
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", UploadWrapper.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("name='" + name + "'")
+                .add("location='" + location + "'")
+                .add("contentType='" + contentType + "'")
+                .add("fileSize=" + fileSize)
+                .toString();
+    }
 }

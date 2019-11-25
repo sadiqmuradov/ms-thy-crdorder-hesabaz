@@ -13,10 +13,11 @@
     <title>PashaBank THY Miles & Smiles Card Order | TK Nömrə</title>
 </head>
 <body>
-<div class="container my-5">
-    <h2 class="mb-5 d-flex justify-content-center">TK Nömrə</h2>
+<div class="container my-3">
+    <h2 class="mb-4 d-flex justify-content-center">TK Nömrə</h2>
     <div class="row">
-        <div class="col d-flex justify-content-center">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <form action="#" th:action="@{/step3}" th:object="${app}" method="post">
                 <div class="row">
                     <div class="col form-group form-check">
@@ -34,7 +35,7 @@
                 <div id="nonExistingTkNoContainer" class="container" th:classappend="${isTkNoAvailable ? 'd-none' : ''}">
                     <div class="row">
                         <div class="col">
-                            <h4>Miles&amp;Smiles proqramına qeydiyyatdan keçmək üçün aşağıdakı məlumatları doldurun</h4>
+                            <h6>Miles&amp;Smiles proqramına qeydiyyatdan keçmək üçün aşağıdakı məlumatları doldurun</h6>
                         </div>
                     </div>
                     <div class="row">
@@ -61,15 +62,21 @@
                             <span th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}" class="text-danger"></span>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <span th:if="${#fields.hasGlobalErrors()}" th:errors="*" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col mt-5">
+                    <div class="col mt-3">
                         <input type="submit" name="next" class="btn btn-primary float-right" value="İrəli">
                         <input type="submit" name="back" class="btn btn-danger float-right mr-3" value="Geri">
                     </div>
                 </div>
             </form>
         </div>
+        <div class="col-md-2"></div>
     </div>
 </div>
 

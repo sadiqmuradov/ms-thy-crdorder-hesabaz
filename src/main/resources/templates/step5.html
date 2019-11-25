@@ -13,11 +13,11 @@
     <title>PashaBank THY Miles & Smiles Card Order | Anket məlumatları</title>
 </head>
 <body>
-<div class="container my-5">
-    <h2 class="mb-5 d-flex justify-content-center">Anket məlumatları</h2>
+<div class="container my-3">
+    <h2 class="mb-4 d-flex justify-content-center">Anket məlumatları</h2>
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-8 d-flex justify-content-center">
+        <div class="col-md-8">
             <form action="#" th:action="@{/step5}" th:object="${app}" method="post">
                 <div class="row" th:each="crsQuestion, iStat : ${crsQuestionList}">
                     <div class="col">
@@ -37,9 +37,15 @@
                                            th:onchange="|toggleAnketDesc(${iStat.index + 1}, 'hide')|">
                                     <label class="form-check-label">Xeyr</label>
                                 </div>
+                                <div>
+                                    <span th:id="'anketAnswersError' + ${iStat.index + 1}"
+                                          th:if="${#fields.hasErrors('anketAnswers[__${iStat.index}__]')}"
+                                          th:errors="*{anketAnswers[__${iStat.index}__]}" class="text-danger"></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="row d-none" th:id="'anketDescs' + ${iStat.index + 1}">
+                        <div class="row" th:id="'anketDescs' + ${iStat.index + 1}"
+                             th:classappend="${anketAnswers[iStat.index] != 1} ? 'd-none' : ''">
                             <div class="col form-group" th:if="${!#strings.isEmpty(crsQuestion.addquestion)}">
                                 <label th:text="${crsQuestion.addquestion}"></label>
                                 <input type="text" th:field="*{anketDescs[__${iStat.index}__]}" class="form-control">
@@ -48,17 +54,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col form-group form-check">
                         <input type="checkbox" id="acceptedTerms" th:field="*{acceptedTerms}" class="form-check-input">
                         <label for="acceptedTerms" class="form-check-label" th:text="#{label.step5.agreement_terms}"></label>
+                        <span th:if="${#fields.hasErrors('acceptedTerms')}" th:errors="*{acceptedTerms}" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col form-group form-check">
                         <input type="checkbox" id="acceptedGsa" th:field="*{acceptedGsa}" class="form-check-input">
                         <label for="acceptedGsa" class="form-check-label" th:text="#{label.step5.agreement_gsa}"></label>
-                        <a class="form-check-label" href="https://www.pashabank.az/gsa/lang,${lang}/" target="_blank" th:text="#{label.step5.link_gsa}"></a>
+                        <a class="form-check-label" href="https://www.pashabank.az/gsa/lang,az/" target="_blank" th:text="#{label.step5.link_gsa}"></a><br>
+                        <span th:if="${#fields.hasErrors('acceptedGsa')}" th:errors="*{acceptedGsa}" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
@@ -84,6 +92,7 @@
         } else {
             $('#anketDescs' + idx).addClass('d-none');
         }
+        $('#anketAnswersError' + idx).text("");
     };
 </script>
 

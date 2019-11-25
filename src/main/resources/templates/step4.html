@@ -13,33 +13,33 @@
     <title>PashaBank THY Miles & Smiles Card Order | Lazımi sənədlər</title>
 </head>
 <body>
-<div class="container my-5">
-    <h2 class="mb-5 d-flex justify-content-center">Lazımi sənədlər</h2>
+<div class="container my-3">
+    <h2 class="mb-4 d-flex justify-content-center">Lazımi sənədlər</h2>
     <div class="row">
-        <div class="col d-flex justify-content-center">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <form action="#" th:action="@{/step4}" th:object="${app}" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col form-group">
-                        <h5>
-                            Şəxsiyyəti təsdiq edən sənədin və xarici pasportun yüklənməsi (maks. 3 MB)
-                            <span>Ş/V-si 2 fayldan ibarət olduqda hər 2 faylı birlikdə seçməyiniz xahiş olunur.</span>
-                        </h5>
+                        <label class="font-weight-bold">Şəxsiyyəti təsdiq edən sənədin və xarici pasportun yüklənməsi (maks. 3 MB)</label>
+                        <label>Ş/V-si 2 fayldan ibarət olduqda hər 2 faylı birlikdə seçməyiniz xahiş olunur.</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col form-group">
-                        <input type="file" multiple="multiple" th:field="*{uploads}" class="form-control">
+                    <div class="col form-group mt-3">
+                        <input type="file" th:field="*{uploads}" class="form-control-file" multiple="multiple">
                         <span th:if="${#fields.hasErrors('uploads')}" th:errors="*{uploads}" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col mt-5">
+                    <div class="col mt-3">
                         <input type="submit" name="next" class="btn btn-primary float-right" value="İrəli">
                         <input type="submit" name="back" class="btn btn-danger float-right mr-3" value="Geri">
                     </div>
                 </div>
             </form>
         </div>
+        <div class="col-md-2"></div>
     </div>
 </div>
 </body>

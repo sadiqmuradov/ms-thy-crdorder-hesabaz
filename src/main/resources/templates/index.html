@@ -9,43 +9,44 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">-->
-<!--    <link rel="stylesheet" href="../static/assets/css/shards.min.css">-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
     <title>PashaBank THY Miles & Smiles Card Order | Şəxsi məlumat</title>
 </head>
 <body>
-<div class="container my-5">
-    <h2 class="mb-5 d-flex justify-content-center">Şəxsi məlumat</h2>
+<div class="container my-3">
+    <h2 class="mb-4 d-flex justify-content-center">Şəxsi məlumat</h2>
     <div class="row">
-        <div class="col d-flex justify-content-center">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <form action="#" th:action="@{/index}" th:object="${app}" method="post">
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="col-md-6 form-group">
                         <label>Ad</label>
                         <input type="text" th:field="*{name}" class="form-control" placeholder="Adınızı daxil edin">
                         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="col-md-6 form-group">
                         <label>Soyad</label>
                         <input type="text" th:field="*{surname}" class="form-control" placeholder="Soyadınızı daxil edin">
                         <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="col-md-6 form-group">
                         <label>Ata adı</label>
                         <input type="text" th:field="*{patronymic}" class="form-control" placeholder="Ata adınızı daxil edin">
                         <span th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}" class="text-danger"></span>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="col-md-6 form-group">
                         <label>Doğum tarixi</label>
-                        <input type="text" th:field="*{birthDate}" class="form-control" placeholder="gg.aa.iiii">
+                        <input type="text" th:field="*{birthDate}" class="form-control birth-date" th:placeholder="#{label.index.birth_date}">
                         <span th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="col-md-6 form-group">
                         <label>Rezidentlik statusu</label>
                         <select th:field="*{residency}" class="form-control">
                             <option value="Rezident" selected="selected">Rezident</option>
@@ -53,13 +54,13 @@
                         </select>
                         <span th:if="${#fields.hasErrors('residency')}" th:errors="*{residency}" class="text-danger"></span>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="col-md-6 form-group">
                         <label>Vətəndaşlıq</label>
-                        <select th:field="*{nationality}" class="form-control">
+                        <select id="nationality" name="nationality" class="form-control">
                             <option th:each="country : ${countryList}"
                                     th:value="${country.code}"
                                     th:text="${country.name}"
-                                    th:selected="(${country.code} == 'AZ')">
+                                    th:selected="${country.code == 'AZ'}">
                             </option>
                         </select>
                         <span th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}" class="text-danger"></span>
@@ -82,33 +83,34 @@
                         </div>
                         <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="text-danger"></span>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="col-md-6 form-group">
                         <label>Məxfi şifrə</label>
                         <input type="text" th:field="*{secretCode}" class="form-control" placeholder="min. 5 – maks. 8 rəqəm">
                         <span th:if="${#fields.hasErrors('secretCode')}" th:errors="*{secretCode}" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col">
+                    <div class="col form-group">
                         <label>İş yeri</label>
                         <input type="text" th:field="*{workplace}" class="form-control" placeholder="İş yerinizi daxil edin">
                         <span th:if="${#fields.hasErrors('workplace')}" th:errors="*{workplace}" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col">
+                    <div class="col form-group">
                         <label>Vəzifə</label>
                         <input type="text" th:field="*{position}" class="form-control" placeholder="Vəzifənizi daxil edin">
                         <span th:if="${#fields.hasErrors('position')}" th:errors="*{position}" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col mt-5">
+                    <div class="col mt-3">
                         <input type="submit" class="btn btn-primary float-right" value="İrəli">
                     </div>
                 </div>
             </form>
         </div>
+        <div class="col-md-2"></div>
     </div>
 </div>
 
@@ -116,14 +118,14 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
 <script>
     $(function () {
-        /*$('.start-date').datepicker({
-            format: 'dd/mm/yyyy'
+        $('.birth-date').datepicker({
+            format: 'dd.mm.yyyy',
+            orientation: 'right'
         });
-        $('.end-date').datepicker({
-            format: 'dd/mm/yyyy'
-        });*/
     });
 </script>
 

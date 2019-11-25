@@ -1,26 +1,34 @@
 package az.pashabank.apl.ms.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.math.BigDecimal;
 import java.sql.Date;
 
 @Data
+@NoArgsConstructor
 @Entity
-@Table(name = "THY_CARD_PRODUCTS")
+@Table(name = "thy_card_products")
 public class CardProduct {
 
     @Id
     private int id;
     private String name;
-    private BigDecimal urgency;
+    private int urgency;
     private Date createDate;
     private Date lastUpdate;
-    private int active;
+    private boolean active;
     @Transient
-    private BigDecimal price;
+    private int price;
+
+    public CardProduct(int id, String name, int urgency, int price) {
+        this.id = id;
+        this.name = name;
+        this.urgency = urgency;
+        this.price = price;
+    }
 }

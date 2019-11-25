@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CRSQuestionRepo extends JpaRepository<CRSQuestion, Integer> {
-        List<CRSQuestion> findAllByLang(String lang);
+        List<CRSQuestion> findAllByLangIgnoreCase(String lang);
 }

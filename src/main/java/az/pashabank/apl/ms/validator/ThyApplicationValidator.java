@@ -4,28 +4,24 @@ import az.pashabank.apl.ms.constants.Regex;
 import az.pashabank.apl.ms.entity.Branch;
 import az.pashabank.apl.ms.entity.CRSAnswer;
 import az.pashabank.apl.ms.entity.CRSQuestion;
+import az.pashabank.apl.ms.entity.CardPrice;
 import az.pashabank.apl.ms.entity.CardProduct;
 import az.pashabank.apl.ms.entity.ThyApplication;
 import az.pashabank.apl.ms.logger.MainLogger;
-import az.pashabank.apl.ms.model.UploadWrapper;
-import az.pashabank.apl.ms.model.thy.CheckTkRequest;
-import az.pashabank.apl.ms.model.thy.CheckTkRestResponse;
-import az.pashabank.apl.ms.model.thy.EnrollmentChannel;
-import az.pashabank.apl.ms.model.thy.MemberData;
-import az.pashabank.apl.ms.model.thy.MemberDetails;
-import az.pashabank.apl.ms.model.thy.MemberOperations;
-import az.pashabank.apl.ms.model.thy.MemberOperationsRequest;
-import az.pashabank.apl.ms.model.thy.MemberOperationsResponse;
+import az.pashabank.apl.ms.entity.UploadWrapper;
 import az.pashabank.apl.ms.model.thy.MemberProfileData;
 import az.pashabank.apl.ms.model.thy.MobilePhone;
 import az.pashabank.apl.ms.proxy.ThyServiceProxy;
-import az.pashabank.apl.ms.repository.Repositories;
+import az.pashabank.apl.ms.service.MainService;
+import az.pashabank.apl.ms.service.MainServiceImpl;
 import az.pashabank.apl.ms.utils.ContentTypeUtils;
 import az.pashabank.apl.ms.utils.Crypto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
@@ -35,7 +31,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Locale;
 
 @Component
 public class ThyApplicationValidator {
@@ -60,7 +56,7 @@ public class ThyApplicationValidator {
     private ThyServiceProxy thyServiceProxy;
 
     @Autowired
-    private Repositories repositories;
+    private MainServiceImpl mainService;
 
     public void validateStep1(ThyApplication app, Errors errors) {
         validateName(app, errors);
@@ -175,7 +171,7 @@ public class ThyApplicationValidator {
         }
     }
 
-    public void validateStep3(ThyApplication app, Errors errors) {
+    public void validateStep3(ThyApplication app, BindingResult errors) {
         if (app.isTkNoAvailable()) {
             validateTkNo(app, errors);
         } else {
@@ -196,7 +192,7 @@ public class ThyApplicationValidator {
     }
 
     private boolean isTkNoVerified(ThyApplication app) {
-        boolean result = false;
+        /*boolean result = false;
         CheckTkRequest checkTkRequest = new CheckTkRequest(new MemberDetails(app.getTkNo()));
         CheckTkRestResponse checkTkRestResponse = thyServiceProxy.getMemberDetails(checkTkRequest);
         List<MemberData> memberDataKVPair = checkTkRestResponse.getCheckTkReturn().getMemberDataKVPair();
@@ -216,7 +212,10 @@ public class ThyApplicationValidator {
             app.setPassportSurname(passportSurname);
             result = true;
         }
-        return result;
+        return result;*/
+        app.setPassportName("TEST");
+        app.setPassportSurname("TESTOV");
+        return true;
     }
 
     private void validatePassportName(@NotNull ThyApplication app, Errors errors) {
@@ -247,7 +246,7 @@ public class ThyApplicationValidator {
         return password.equals(passwordRepeat);
     }
 
-    private void registerCustomerInThy(@NotNull ThyApplication app, Errors errors) {
+    private void registerCustomerInThy(@NotNull ThyApplication app, BindingResult errors) {
         String birthDate = app.getBirthDate();
         String birthDateDay = birthDate.substring(0, 2);
         String birthDateMonth = birthDate.substring(3, 5);
@@ -265,15 +264,23 @@ public class ThyApplicationValidator {
                         app.getNationality(), app.getPassword(),
                         "EN", app.getGender().toUpperCase()
                 );
-
-        MemberOperations memberOperations = new MemberOperations("CREATE", new EnrollmentChannel(15, 196), memberProfileData);
+        /*MemberOperations memberOperations = new MemberOperations("CREATE", new EnrollmentChannel(15, 196), memberProfileData);
         MemberOperationsRequest memberOperationsRequest = new MemberOperationsRequest(memberOperations);
         MemberOperationsResponse memberOperationsResponse = thyServiceProxy.createMember(memberOperationsRequest);
-        memberProfileData = memberOperationsResponse.getMemberOperationsReturn().getMemberProfileData();
+        memberProfileData = memberOperationsResponse.getMemberOperationsReturn().getMemberProfileData();*/
+        memberProfileData.setMemberId("TK466315727");
         if (memberProfileData == null) {
-            errors.reject("message.errors.register_customer_in_thy");
+            errors.addError(
+                    new ObjectError(
+                            "thy_register_customer_error",
+                            new String[] { "message.errors.global_error" },
+                            new Object[] { },
+                            ""
+                    )
+            );
         } else {
             app.setTkNo(memberProfileData.getMemberId());
+            app.setTkNoAvailable(true);
         }
     }
 
@@ -283,13 +290,13 @@ public class ThyApplicationValidator {
 
     private void validateUploads(@NotNull ThyApplication app, Errors errors) {
         if (app.getUploads() == null || app.getUploads().length < 1 || !areUploadedDocsVerified(app.getUploads())) {
-            errors.reject("message.errors.invalid.id_card_upload");
+            errors.rejectValue("uploads", "message.errors.invalid.id_card_upload");
         } else {
             List<UploadWrapper> wrappers = fillWrappers(app.getUploads());
             if (!wrappers.isEmpty()) {
                 app.setUploadWrappers(wrappers);
             } else {
-                errors.reject("message.errors.id_card_upload_files_write");
+                errors.rejectValue("uploads", "message.errors.id_card_upload_files_write");
             }
         }
     }
@@ -349,38 +356,37 @@ public class ThyApplicationValidator {
         wrappers.clear();
     }
 
-    public void validateStep5(ThyApplication app, Errors errors) {
-        validateAnketData(app, errors);
+    public void validateStep5(ThyApplication app, Errors errors, Locale locale) {
+        validateAnketData(app, errors, locale);
         validateAcceptedTerms(app, errors);
         validateAcceptedGSA(app, errors);
     }
 
-    private void validateAnketData(@NotNull ThyApplication app, Errors errors) {
-        List<CRSQuestion>  crsQuestionList = repositories.getCrsQuestionRepo().findAllByLang("az");
+    private void validateAnketData(@NotNull ThyApplication app, Errors errors, Locale locale) {
+        List<CRSQuestion> crsQuestionList = mainService.getCRSQuestionList(locale.getLanguage());
         for (int i = 0; i < crsQuestionList.size(); i++) {
-            if (!areAnswerAndDescVerified(app.getAnketAnswers()[i], app.getAnketDescs()[i], errors))
+            if (!areAnswerAndDescVerified(app.getAnketAnswers()[i], app.getAnketDescs()[i], i, errors))
                 break;
         }
         if (!errors.hasErrors()) {
-            fillCrsAnswers(app);
+            fillCrsAnswers(app, locale.getLanguage());
         }
     }
 
-    private boolean areAnswerAndDescVerified(Integer answer, String desc, Errors errors) {
+    private boolean areAnswerAndDescVerified(int answer, String desc, int idx, Errors errors) {
         boolean result = true;
-        if (answer == null) {
-            errors.reject("ankets.all_questions_required");
+        if (answer == 0) {
+            errors.rejectValue("anketAnswers[" + idx + "]","message.errors.invalid.answer_choice_required");
             result = false;
         } else if (answer == 1 && desc != null && desc.trim().isEmpty()) {
-            errors.reject("ankets.answer_desc.required");
+            errors.rejectValue("anketDescs[" + idx + "]", "message.errors.invalid.answer_desc_required");
             result = false;
         }
         return result;
     }
 
-    private void fillCrsAnswers(ThyApplication app) {
-        List<CRSQuestion>  crsQuestionList = repositories.getCrsQuestionRepo().findAllByLang("az");
-
+    private void fillCrsAnswers(ThyApplication app, String lang) {
+        List<CRSQuestion> crsQuestionList = mainService.getCRSQuestionList(lang);
         List<CRSAnswer> crsAnswers = new ArrayList<>();
         for (int i = 0; i < crsQuestionList.size(); i++) {
             CRSAnswer crsAnswer = new CRSAnswer();
@@ -394,49 +400,63 @@ public class ThyApplicationValidator {
 
     private void validateAcceptedTerms(@NotNull ThyApplication app, Errors errors) {
         if (!app.isAcceptedTerms()) {
-            errors.reject("message.error.invalid.agreement");
+            errors.rejectValue("acceptedTerms", "message.errors.invalid.agreement_terms");
         }
     }
 
     private void validateAcceptedGSA(@NotNull ThyApplication app, Errors errors) {
         if (!app.isAcceptedGsa()) {
-            errors.reject("message.error.invalid.gsa_agreement");
+            errors.rejectValue("acceptedGsa", "message.errors.invalid.agreement_gsa");
         }
     }
 
-    public void validateStep6(ThyApplication app, Errors errors) {
-        validateCardProductId(app, errors);
-        validateBranchCode(app, errors);
-    }
-
-    private void validateCardProductId(@NotNull ThyApplication app, Errors errors) {
-        if (app.getCardProductId() == null || !isCardProductIdVerified(app.getCardProductId())) {
-            errors.reject("message.error.invalid.card_type");
+    public void validateStep6(ThyApplication app, BindingResult errors, Locale locale) {
+        CardProduct cardProduct = validateCardProductId(app, errors);
+        validateBranchCode(app, errors, locale);
+        if (!errors.hasErrors()) {
+            CardPrice cardPrice = mainService.getCardPriceByCardProductId(app.getCardProductId());
+            if (cardPrice != null) {
+                int amountToPay = cardPrice.getLcyAmount() + (app.isUrgent() ? cardProduct.getUrgency() : 0);
+                app.setAmountToPay(amountToPay);
+            } else {
+                errors.addError(
+                        new ObjectError(
+                                "card_price_error",
+                                new String[] { "message.errors.global_error" },
+                                new Object[] { },
+                                ""
+                        )
+                );
+            }
         }
     }
 
-    protected boolean isCardProductIdVerified(Integer cardProductId) {
-        boolean result = false;
-        Optional<CardProduct> opt = repositories.getCardProductRepo().findById(cardProductId);
-        if (opt.isPresent()) {
-            result = true;
+    private CardProduct validateCardProductId(@NotNull ThyApplication app, BindingResult errors) {
+        CardProduct cardProduct = null;
+        if (app.getCardProductId() == 0) {
+            errors.rejectValue("cardProductId", "message.errors.invalid.card_type");
+        } else {
+            cardProduct = mainService.getCardProductById(app.getCardProductId());
+            if (cardProduct == null) {
+                errors.rejectValue("cardProductId", "message.errors.invalid.card_type");
+            }
         }
-        return result;
+        return cardProduct;
     }
 
-    protected void validateBranchCode(@NotNull ThyApplication app, Errors errors) {
-        if (app.getBranchCode() == null || !isBranchCodeVerified(app.getBranchCode())) {
-            errors.reject("message.error.invalid.branch_id");
+    protected void validateBranchCode(@NotNull ThyApplication app, Errors errors, Locale locale) {
+        if (app.getBranchCode() == null || app.getBranchCode().trim().isEmpty() || !isBranchCodeVerified(app, locale.getLanguage())) {
+            errors.rejectValue("branchCode", "message.errors.invalid.branch_code");
         }
     }
 
-    protected boolean isBranchCodeVerified(String branchCode) {
-        boolean result = false;
-        Optional<Branch> opt = repositories.getBranchRepo().findById(branchCode);
-        if (opt.isPresent()) {
-            result = true;
+    protected boolean isBranchCodeVerified(ThyApplication app, String lang) {
+        Branch branch = mainService.getBranchByCodeAndLang(app.getBranchCode(), lang);
+        if (branch != null) {
+            app.setBranchName(branch.getName());
+            return true;
         }
-        return result;
+        return false;
     }
 
 }

@@ -1,5 +1,6 @@
 package az.pashabank.apl.ms.model;
 
+import az.pashabank.apl.ms.entity.UploadWrapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
