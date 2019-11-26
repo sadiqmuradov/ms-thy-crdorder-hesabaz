@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <title>PashaBank THY Miles & Smiles Card Order | Kart məlumatları</title>
+</head>
+<body>
+<div class="container my-3">
+    <h2 class="mb-4 d-flex justify-content-center">Kart məlumatları</h2>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form action="#" th:action="@{/step6}" th:object="${app}" method="post">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Kartın növü</label>
+                        <select id="cardProductId" th:field="*{cardProductId}" class="form-control">
+                            <option th:if="${emptyProductId}" value="0" selected="selected">- Seçin -</option>
+                            <option th:each="cardProduct : ${cardProductList}"
+                                    th:value="${cardProduct.id}"
+                                    th:text="${cardProduct.name}"
+                                    th:attr="data-price=${cardProduct.price},data-urgency=${cardProduct.urgency}">
+                            </option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('cardProductId')}" th:errors="*{cardProductId}" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Kartın verilmə müddəti</label>
+                        <label class="form-control">3 il</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Kartı almaq istədiyiniz filial</label>
+                        <select id="branchCode" th:field="*{branchCode}" class="form-control">
+                            <option th:if="${emptyBranch}" value="" selected="selected">- Seçin -</option>
+                            <option th:each="branch : ${branchList}"
+                                    th:value="${branch.code}"
+                                    th:text="${branch.name}">
+                            </option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('branchCode')}" th:errors="*{branchCode}" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Kartın valyutası</label>
+                        <label class="form-control">AZN</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-check">
+                            <input type="checkbox" id="urgent" th:field="*{urgent}" class="form-check-input">
+                            <label class="form-check-label">Təcili sifariş</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Ödənilməli məbləğ:</label><br>
+                        <label style="font-size: 25px"><span id="amountToPay">0</span> <span>AZN</span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span th:if="${#fields.hasGlobalErrors()}" th:errors="*" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-3">
+                        <input type="submit" name="next" class="btn btn-primary float-right" value="İrəli">
+                        <input type="submit" name="back" class="btn btn-danger float-right mr-3" value="Geri">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(function () {
+        $('#cardProductId').change(function() {
+            let amountToPay = 0;
+            if ($(this).val() !== '0') {
+                if ($('#urgent').is(':checked')) {
+                    amountToPay = $('#cardProductId option[value="' + $(this).val() + '"]').data('urgency');
+                }
+                amountToPay += $('#cardProductId option[value="' + $(this).val() + '"]').data('price');
+            }
+            $('#amountToPay').text(amountToPay);
+        });
+
+        $(':checkbox').change(function() {
+            if ($('#cardProductId').val() !== '0') {
+                let option = $('#cardProductId option[value="' + $('#cardProductId').val() + '"]');
+                let amountToPay = option.data('price');
+                if ($(this).is(':checked')) {
+                    amountToPay += option.data('urgency');
+                }
+                $('#amountToPay').text(amountToPay);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

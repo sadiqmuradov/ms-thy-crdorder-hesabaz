@@ -4,31 +4,53 @@ plugins {
     id 'java'
 }
 
-group = 'az.pashabank.apl.ms'
+group = 'az.pashabank.apl'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
+    mavenLocal()
     maven { url 'https://nexus3/repository/maven-group' }
     mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+
+    maven { url 'http://download.java.net/maven/1' }
+    maven { url 'http://download.java.net/maven/2' }
 }
 
 ext {
     set('springCloudVersion', "Greenwich.SR1")
 }
 
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'com.oracle:ojdbc8:18.3.0.0'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.json:json:20180130'
     implementation 'io.springfox:springfox-swagger-ui:2.8.0'
     implementation 'io.springfox:springfox-swagger2:2.8.0'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 }
 
 dependencyManagement {
@@ -42,5 +64,5 @@ configurations {
 }
 jar {
     enabled = true
-    jar.archiveName = 'ms-thy-crdorder-hesabaz-wd.jar'
+    jar.archiveFileName = 'ms-thy-crdorder-hesabaz-wd.jar'
 }

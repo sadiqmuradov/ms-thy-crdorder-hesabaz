@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <title>PashaBank THY Miles & Smiles Card Order | Lazımi sənədlər</title>
+</head>
+<body>
+<div class="container my-3">
+    <h2 class="mb-4 d-flex justify-content-center">Lazımi sənədlər</h2>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form action="#" th:action="@{/step4}" th:object="${app}" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col form-group">
+                        <label class="font-weight-bold">Şəxsiyyəti təsdiq edən sənədin və xarici pasportun yüklənməsi (maks. 3 MB)</label>
+                        <label>Ş/V-si 2 fayldan ibarət olduqda hər 2 faylı birlikdə seçməyiniz xahiş olunur.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col form-group mt-3">
+                        <input type="file" th:field="*{uploads}" class="form-control-file" multiple="multiple">
+                        <span th:if="${#fields.hasErrors('uploads')}" th:errors="*{uploads}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-3">
+                        <input type="submit" name="next" class="btn btn-primary float-right" value="İrəli">
+                        <input type="submit" name="back" class="btn btn-danger float-right mr-3" value="Geri">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+</body>
+</html>

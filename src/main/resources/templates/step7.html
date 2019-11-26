@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <title>PashaBank THY Miles & Smiles Card Order | Məlumatların yoxlanışı</title>
+</head>
+<body>
+<div class="container my-3">
+    <h2 class="mb-4 d-flex justify-content-center">Məlumatların yoxlanışı</h2>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <form action="#" th:action="@{/step7}" th:object="${app}" method="post">
+                <div class="row">
+                    <div class="col form-group">
+                        <label class="text-success font-weight-bold" th:text="#{label.step7.check_app_info}"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Ad, soyad, ata adı :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.name} + ' ' + ${app.surname} + ' ' + ${app.patronymic}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Doğum tarixi :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.birthDate}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Rezidentlik statusu :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.residency}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Vətəndaşlıq :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.nationality}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Cinsi :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.gender == 'M'} ? #{label.step7.man} : #{label.step7.woman}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Məxfi şifrə :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.secretCode}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>İş yeri :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.workplace}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Vəzifə :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.position}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Şəhər :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.registrationCity}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Qeydiyyat ünvanı :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.registrationAddress}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Mobil nömrə :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.mobileNumber}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>E-poçt ünvanı :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.email}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Faktiki ünvan :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.domicileSame} ? ${app.registrationAddress} : ${app.domicileAddress}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Kartın növü :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${cardProductName}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Kartı almaq istədiyiniz filial :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.branchName}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Təcili sifariş :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.urgent} ? #{label.step7.yes} : #{label.step7.no}"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Kartın ödənişi :</label>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label><span th:text="${app.amountToPay}"></span> <span>AZN</span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span th:if="${#fields.hasGlobalErrors()}" th:errors="*" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-3">
+                        <input type="submit" name="pay" class="btn btn-primary float-right" value="Ödə">
+                        <input type="submit" name="cancel" class="btn btn-danger float-right mr-3" value="İmtina">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(function () {
+
+    });
+</script>
+
+</body>
+</html>
