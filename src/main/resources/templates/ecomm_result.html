@@ -1,177 +1,122 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js" th:lang="${#locale.language}"  xmlns:th="http://thymeleaf.org">
-<head th:insert="handlebars/partials/head :: header"></head>
-<head th:insert="handlebars/partials/head :: styles"></head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>PashaBank THY Miles & Smiles Card Order | Ödəniş məlumatları</title>
+</head>
 <body>
-	<!-- begin: content -->
-	<header class="d-flex align-items-center" th:style="'background-image: url(' + @{/assets/img/header_bg.jpg} + ');'">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6 mb-sm-0 mb-3">
-					<div class="logo-wrap d-flex justify-content-sm-start justify-content-center">
-						<a target="_blank" class="logo" href="https://www.pashabank.az/lang,az/" title="Pasha Bank">
-							<img th:src="@{/assets/img/logo.png}" alt="">
-						</a>
-						<a target="_blank" class="logo-miles-smiles"
-							href="https://www.turkishairlines.com/tr-az/miles-and-smiles/30-years-of-smiles/index.html"
-							title="Miles&Smiles">
-							<img th:src="@{/assets/img/thy_miles_smiles_logo_white.png}" alt="">
-						</a>
-					</div>
-				</div>
-				<div class="col-sm-6 d-flex justify-content-sm-end justify-content-center">
-					<div class="lang full-radius">
-                        <b th:if="${lcl == 'en'}">EN</b>
-                        <b th:if="${lcl == 'az'}">AZ</b>
-                        <b th:if="${lcl == 'ru'}">RU</b>
-						<picture>
-							<img th:src="@{/assets/img/Icon_Down_1x.png}" alt="">
-						</picture>
-						<div class="other-langs">
-                            <a th:if="${lcl == 'en'}" th:href="@{/index(lang=az,page=${currentPage},startDate=${startDate},endDate=${endDate})}" class="language-link">AZ</a>
-                            <a th:if="${lcl == 'en'}" th:href="@{/index(lang=ru,page=${currentPage},startDate=${startDate},endDate=${endDate})}" class="language-link">RU</a>
-                            <a th:if="${lcl == 'az'}" th:href="@{/index(lang=en,page=${currentPage},startDate=${startDate},endDate=${endDate})}" class="language-link">EN</a>
-                            <a th:if="${lcl == 'az'}" th:href="@{/index(lang=ru,page=${currentPage},startDate=${startDate},endDate=${endDate})}" class="language-link">RU</a>
-                            <a th:if="${lcl == 'ru'}" th:href="@{/index(lang=en,page=${currentPage},startDate=${startDate},endDate=${endDate})}" class="language-link">EN</a>
-                            <a th:if="${lcl == 'ru'}" th:href="@{/index(lang=az,page=${currentPage},startDate=${startDate},endDate=${endDate})}" class="language-link">AZ</a>
-						</div>
-					</div>
-					<div class="user ml-4">
-						<a href="" th:text="${session.customer != null ? session.customer.name : ''}"></a>
-					</div>
-                    <a class="ml-5 d-flex align-items-center text-white mb-1" th:href="@{logout}" style="font-size: 30px; text-decoration: none;">
-                        <i class="fa fa-sign-out"></i>
-                    </a>
-				</div>
-			</div>
-		</div>
-	</header>
-
-	<section class="main-section pb-5 registration-area">
-		<div class="container">
-			<div class="row justify-content-center py-5">
-				<div class="col-md-2"></div>
-				<div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                            <div class="panel panel-smart pt-1">
-    <!--							<div class="panel-heading text-center height-200">-->
-    <!--								<a th:href="@{/index}"><img class="img-logo margin-top-10 width-50prc" th:src="@{'/assets/img/logo_' + ${lcl} + '.png'}" /></a>-->
-    <!--							</div>-->
-                                <div class="panel-body">
-                                    <div th:if="${operation_code == 'ok'}" class="panel panel-smart">
-                                        <div class="panel-heading no-border">
-                                            <h5 class="panel-title text-center custom-success-text">
-                                                <p><span th:text="#{message.ecomm_result.success.operation_1}"></span></p>
-                                                <p><span th:text="#{message.ecomm_result.success.operation_2}"></span></p>
-                                            </h5>
-                                            <button class="btn btn-sm btn-default btn-print"><i class="fa fa-print"></i></button>
-                                        </div>
-                                        <div class="panel-body">
-                                            <table class="table table-hover ecomm-result-table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <span th:text="#{label.ecomm_result.payment.transaction_id}"></span>:
-                                                        </td>
-                                                        <td>
-                                                            <span th:text="${payment.transactionId}"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span th:text="#{label.ecomm_result.payment.amount}"></span>:
-                                                        </td>
-                                                        <td>
-                                                            <span th:text="${amount}"></span> <span th:text="${payment.currency}"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span th:text="#{label.ecomm_result.payment.card_no}"></span>:
-                                                        </td>
-                                                        <td>
-                                                            <span th:text="${payment.ecommCardNo}"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            RRN:
-                                                        </td>
-                                                        <td>
-                                                            <span th:text="${payment.ecommRrn}"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span th:text="#{label.ecomm_result.payment.approval_code}"></span>:
-                                                        </td>
-                                                        <td>
-                                                            <span th:text="${payment.ecommApprovalCode}"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span th:text="#{label.ecomm_result.payment.operation_date}"></span>:
-                                                        </td>
-                                                        <td>
-                                                            <span th:text="${createDate}"></span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="ecomm-result-footer">
-                                            <h5 class="panel-title text-center custom-success-text">
-                                                <p><span th:text="#{message.ecomm_result.success.operation_3}"></span></p>
-                                                <p><span th:text="#{message.ecomm_result.success.operation_4}"></span></p>
-                                            </h5>
-                                        </div>
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <div class="panel pt-1">
+                            <div class="panel-body">
+                                <div th:if="${operation_code == 'ok'}" class="panel">
+                                    <div class="panel-heading no-border">
+                                        <h5 class="panel-title text-center text-success">
+                                            <p><span th:text="#{message.success.ecomm_result.operation_1}"></span></p>
+                                            <p><span th:text="#{message.success.ecomm_result.operation_2}"></span></p>
+                                        </h5>
+                                        <button class="btn btn-sm btn-default btn-print"><i class="fa fa-print"></i></button>
                                     </div>
-
-                                    <div th:if="${operation_code == 'error'}" th:switch="${result_code}" class="alert alert-danger custom-error-div text-center">
-                                        <h5 th:case="'100'"><span th:text="#{message.ecomm_result.error.invalid_card_info}"></span></h5>
-                                        <h5 th:case="'116'"><span th:text="#{message.ecomm_result.error.insufficient_funds}"></span></h5>
-                                        <h5 th:case="*"><span th:text="#{message.error.system_error}"></span></h5>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span th:text="#{label.ecomm_result.payment.transaction_id}"></span>:
+                                                    </td>
+                                                    <td>
+                                                        <span th:text="${payment.transactionId}"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span th:text="#{label.ecomm_result.payment.amount}"></span>:
+                                                    </td>
+                                                    <td>
+                                                        <span th:text="${payment.amount}"></span> <span th:text="${payment.currency}"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span th:text="#{label.ecomm_result.payment.card_no}"></span>:
+                                                    </td>
+                                                    <td>
+                                                        <span th:text="${payment.ecommCardNumber}"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        RRN:
+                                                    </td>
+                                                    <td>
+                                                        <span th:text="${payment.ecommRrn}"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span th:text="#{label.ecomm_result.payment.approval_code}"></span>:
+                                                    </td>
+                                                    <td>
+                                                        <span th:text="${payment.ecommApprovalCode}"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span th:text="#{label.ecomm_result.payment.operation_date}"></span>:
+                                                    </td>
+                                                    <td>
+                                                        <span th:text="${createDate}"></span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-
-                                    <div class="text-right mt-3">
-                                        <a th:href="@{/index}" class="btn btn-main"><span th:text="#{label.ecomm_result.button.main_page}"></span></a>
+                                    <div class="ecomm-result-footer mt-3">
+                                        <h6 class="panel-title text-center text-info">
+                                            <p><span th:text="#{message.success.ecomm_result.operation_3}"></span></p>
+                                            <p><span th:text="#{message.success.ecomm_result.operation_4}"></span></p>
+                                        </h6>
                                     </div>
+                                </div>
 
-                                    <div class="footer-images text-center">
-                                        <img class="cchead-img" th:src="@{/assets/img/cchead2.gif}" />
-                                    </div>
+                                <div th:if="${operation_code == 'error'}" th:switch="${result_code}" class="alert alert-danger text-center">
+                                    <h5 th:case="'100'"><span th:text="#{message.errors.ecomm_result.invalid_card_info}"></span></h5>
+                                    <h5 th:case="'116'"><span th:text="#{message.errors.ecomm_result.insufficient_funds}"></span></h5>
+                                    <h5 th:case="*"><span th:text="#{message.errors.global_error}"></span></h5>
+                                </div>
+
+                                <div class="text-right mt-4">
+                                    <a th:href="@{/index}" class="btn btn-danger"><span th:text="#{label.ecomm_result.button.main_page}"></span></a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"></div>
                     </div>
-				</div>
-				<div class="col-md-2"></div>
-			</div>
-		</div>
-	</section>
-
-	<div th:replace="handlebars/partials/footer_inside :: footer_inside"></div>
-
-	<!-- end: content -->
-
-	<!-- webpack runtime JS -->
-	<script th:src="@{/app/runtime.bfdd6b139fd9513dddce.bundle.js}"></script>
-
-	<!-- Vendor JS -->
-	<script th:src="@{/app/vendor.55ee3541ebeb918f7d6e.bundle.js}"></script>
-
-	<!-- Own JS -->
-	<script th:src="@{/app/app.f239e134ff39f0ee6853.bundle.js}"></script>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
 
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 			crossorigin="anonymous"></script>
 
-	<!-- External scripts (eg. analytics) should be placed here -->
 	<script>
         $(function () {
             $('.btn-print').on('click', function(e) {

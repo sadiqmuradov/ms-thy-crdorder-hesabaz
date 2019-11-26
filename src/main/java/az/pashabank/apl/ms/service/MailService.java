@@ -55,7 +55,7 @@ public class MailService {
     private MainDao mainDao;
 
     @Autowired
-    private Repositories repositories;
+    private MainServiceImpl mainService;
 
     public OperationResponse sendPlainEmail(Payment payment) {
         OperationResponse operationResponse = new OperationResponse(ResultCode.ERROR);
@@ -76,7 +76,7 @@ public class MailService {
 
             int appId = payment.getAppId();
 
-            ThyApplication app = repositories.getThyApplicationRepo().getOne(appId);
+            ThyApplication app = mainService.getApplicationById(appId);
 
             String paymentMethod = null;
             boolean isUrgent = false;
@@ -99,7 +99,7 @@ public class MailService {
             String couponSerialNo = null;
             if (paymentMethod != null && paymentMethod.equalsIgnoreCase("COUPON")) {
 //                couponSerialNo = mainDao.getCouponSerialNo(appId);
-                CouponCode couponCode = repositories.getCouponCodeRepo().findCouponCodeByAppid(appId);
+                CouponCode couponCode = mainService.getCouponCodeByAppId(appId);
                 if (couponCode != null) {
                     couponSerialNo = couponCode.getSerialNo();
                 }
@@ -262,7 +262,7 @@ public class MailService {
 
     private @NotNull String generateMailContent(@NotNull ThyApplication application, List<CRSQuestion> crsQuestions, Payment payment) {
         String thyOtrsRequestValue = mainDao.getValueFromEmailConfig("thy_hesabaz_otrs_request");
-        CardProduct cardProduct = repositories.getCardProductRepo().getOne(application.getCardProductId());
+        CardProduct cardProduct = mainService.getCardProductById(application.getCardProductId());
         String plainTemplate = String.format(
                 thyOtrsRequestValue,
                 application.getResidency(),

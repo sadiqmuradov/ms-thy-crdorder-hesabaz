@@ -5,7 +5,7 @@ import az.pashabank.apl.ms.enums.ResultCode;
 import az.pashabank.apl.ms.logger.MainLogger;
 import az.pashabank.apl.ms.model.OperationResponse;
 import az.pashabank.apl.ms.model.Payment;
-import az.pashabank.apl.ms.repository.Repositories;
+import az.pashabank.apl.ms.service.MainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -21,12 +21,12 @@ public class FlexScheduler {
     private MainDao mainDao;
 
     @Autowired
-    private Repositories repositories;
+    private MainServiceImpl mainService;
     
     @Scheduled(fixedDelayString = "${schedule.fixedDelay.in.milliseconds.flex}") // must be 120000
     public void makeFlexPayments() {
         try {
-            List<Payment> unpaidFlexPayments = repositories.getPaymentRepo().findAllByStatusOrderByCreateDate(2);
+            List<Payment> unpaidFlexPayments = mainService.getUnpaidFlexPayments();
             LOGGER.info("-----------------------------------------");
             LOGGER.info("Selected unpaid card order payments in FLEX");
             for(Payment payment: unpaidFlexPayments) {

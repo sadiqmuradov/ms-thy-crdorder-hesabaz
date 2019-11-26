@@ -29,7 +29,7 @@
                         <label>Ad, soyad, ata adı :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.name} + ' ' + ${app.surname} + ' ' + ${app.patronymic}"></span></label>
+                        <label><span th:text="${sessionApp.name} + ' ' + ${sessionApp.surname} + ' ' + ${sessionApp.patronymic}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -37,7 +37,7 @@
                         <label>Doğum tarixi :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.birthDate}"></span></label>
+                        <label><span th:text="${sessionApp.birthDate}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -45,7 +45,7 @@
                         <label>Rezidentlik statusu :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.residency}"></span></label>
+                        <label><span th:text="${sessionApp.residency}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -53,7 +53,7 @@
                         <label>Vətəndaşlıq :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.nationality}"></span></label>
+                        <label><span th:text="${nationality}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -61,7 +61,7 @@
                         <label>Cinsi :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.gender == 'M'} ? #{label.step7.man} : #{label.step7.woman}"></span></label>
+                        <label><span th:text="${sessionApp.gender == 'M'} ? #{label.step7.man} : #{label.step7.woman}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -69,7 +69,7 @@
                         <label>Məxfi şifrə :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.secretCode}"></span></label>
+                        <label><span th:text="${sessionApp.secretCode}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -77,7 +77,7 @@
                         <label>İş yeri :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.workplace}"></span></label>
+                        <label><span th:text="${sessionApp.workplace}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -85,7 +85,7 @@
                         <label>Vəzifə :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.position}"></span></label>
+                        <label><span th:text="${sessionApp.position}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -93,7 +93,7 @@
                         <label>Şəhər :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.registrationCity}"></span></label>
+                        <label><span th:text="${registrationCity}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -101,7 +101,7 @@
                         <label>Qeydiyyat ünvanı :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.registrationAddress}"></span></label>
+                        <label><span th:text="${sessionApp.registrationAddress}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -109,7 +109,7 @@
                         <label>Mobil nömrə :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.mobileNumber}"></span></label>
+                        <label><span th:text="${sessionApp.mobileNumber}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -117,7 +117,7 @@
                         <label>E-poçt ünvanı :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.email}"></span></label>
+                        <label><span th:text="${sessionApp.email}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -125,7 +125,7 @@
                         <label>Faktiki ünvan :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.domicileSame} ? ${app.registrationAddress} : ${app.domicileAddress}"></span></label>
+                        <label><span th:text="${sessionApp.domicileSame} ? ${sessionApp.registrationAddress} : ${sessionApp.domicileAddress}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -141,7 +141,7 @@
                         <label>Kartı almaq istədiyiniz filial :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.branchName}"></span></label>
+                        <label><span th:text="${sessionApp.branchName}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -149,7 +149,7 @@
                         <label>Təcili sifariş :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.urgent} ? #{label.step7.yes} : #{label.step7.no}"></span></label>
+                        <label><span th:text="${sessionApp.urgent} ? #{label.step7.yes} : #{label.step7.no}"></span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -157,7 +157,7 @@
                         <label>Kartın ödənişi :</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label><span th:text="${app.amountToPay}"></span> <span>AZN</span></label>
+                        <label><span th:text="${sessionApp.amountToPay}"></span> <span>AZN</span></label>
                     </div>
                 </div>
                 <div class="row">
