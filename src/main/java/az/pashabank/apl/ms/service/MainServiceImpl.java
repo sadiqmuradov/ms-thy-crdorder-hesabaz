@@ -2,6 +2,7 @@ package az.pashabank.apl.ms.service;
 
 import az.pashabank.apl.ms.dao.MainDao;
 import az.pashabank.apl.ms.entity.Branch;
+import az.pashabank.apl.ms.entity.CRSAnswer;
 import az.pashabank.apl.ms.entity.CRSQuestion;
 import az.pashabank.apl.ms.entity.CardPrice;
 import az.pashabank.apl.ms.entity.CardProduct;
@@ -9,6 +10,7 @@ import az.pashabank.apl.ms.entity.City;
 import az.pashabank.apl.ms.entity.Country;
 import az.pashabank.apl.ms.entity.CouponCode;
 import az.pashabank.apl.ms.entity.ThyApplication;
+import az.pashabank.apl.ms.entity.UploadWrapper;
 import az.pashabank.apl.ms.enums.ResultCode;
 import az.pashabank.apl.ms.logger.MainLogger;
 import az.pashabank.apl.ms.model.OperationResponse;
@@ -20,9 +22,12 @@ import az.pashabank.apl.ms.model.ecomm.EcommPaymentStatusResponse;
 import az.pashabank.apl.ms.proxy.ECommServiceProxy;
 import az.pashabank.apl.ms.repository.Repositories;
 import az.pashabank.apl.ms.utils.Utils;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -77,6 +82,20 @@ public class MainServiceImpl implements MainService {
         // delete olmali deyil ancaq update
     }
 
+    public ThyApplication getApplicationById(int appId) {
+        return repositories.getThyApplicationRepo().getOne(appId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ThyApplication> getUnsentApplications() {
+        List<ThyApplication> thyApplications = repositories.getThyApplicationRepo().findAllByPaymentCompletedTrueAndMailSentFalseOrderByCreateDate();
+        for (ThyApplication app : thyApplications) {
+            Hibernate.initialize(app.getUploadWrappers());
+            Hibernate.initialize(app.getCrsAnswers());
+        }
+        return thyApplications;
+    }
+
     public List<Country> getCountryList(String lang) {
         return repositories.getCountryRepo().findAllByLangIgnoreCaseOrderByName(lang);
     }
@@ -123,8 +142,28 @@ public class MainServiceImpl implements MainService {
     }
 
     @Override
+    public Payment getPaymentByAppIdAndStatus(int appId, int status) {
+        return repositories.getPaymentRepo().findPaymentByAppIdAndStatus(appId, status);
+    }
+
     public Payment getPaymentByAppId(int appId) {
-        return repositories.getPaymentRepo().findPaymentByAppIdAndStatus(appId, 1);
+        return repositories.getPaymentRepo().findPaymentByAppId(appId);
+    }
+
+    public List<Payment> getUnpaidFlexPayments() {
+        return repositories.getPaymentRepo().findAllByStatusOrderByCreateDate(2);
+    }
+
+    public CouponCode getCouponCodeByAppId(int appId) {
+        return repositories.getCouponCodeRepo().findCouponCodeByAppid(appId);
+    }
+
+    public List<UploadWrapper> getUploadWrappersByAppId(int appId) {
+        return repositories.getUploadWrapperRepo().findAllByAppId(appId);
+    }
+
+    public List<CRSAnswer> getCRSAnswersByAppId(int appId) {
+        return repositories.getCrsAnswerRepo().findAllByAppId(appId);
     }
 
     public String registerPaymentAndGetView(ThyApplication app, Locale locale, BindingResult result) {
@@ -286,7 +325,7 @@ public class MainServiceImpl implements MainService {
 
     public void setCouponPaymentActions(ThyApplication app) {
         setCouponUsed(app);
-        Payment payment = getPaymentByAppId(app.getId());
+        Payment payment = getPaymentByAppIdAndStatus(app.getId(), 1);
         applyPostSuccessPaymentSteps(payment, false);
     }
 

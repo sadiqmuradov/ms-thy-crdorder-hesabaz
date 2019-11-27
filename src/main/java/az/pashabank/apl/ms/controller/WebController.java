@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -418,18 +419,19 @@ public class WebController {
             reloadStep1(model, locale);
             return "index";
         }
-        Country country = mainService.getCountryByLangAndCode(locale.getLanguage(), sessionApp.getNationality());
-        City city = mainService.getCityByCountryCodeAndCode(sessionApp.getNationality(), sessionApp.getRegistrationCity());
-        sessionApp.setNationality(country != null ? country.getName() : "");
-        sessionApp.setRegistrationCity(city != null ? city.getName() : "");
-        model.addAttribute("app", sessionApp);
+        sessionApp.setAmountToPay(1);
         reloadStep7(model, locale, sessionApp);
         return "step7";
     }
 
     private void reloadStep7(Model model, Locale locale, ThyApplication app) {
+        Country country = mainService.getCountryByLangAndCode(locale.getLanguage(), app.getNationality());
+        City city = mainService.getCityByCountryCodeAndCode(app.getNationality(), app.getRegistrationCity());
         CardProduct cardProduct = mainService.getCardProductById(app.getCardProductId());
+        model.addAttribute("nationality", country != null ? country.getName() : "");
+        model.addAttribute("registrationCity", city != null ? city.getName() : "");
         model.addAttribute("cardProductName", cardProduct != null ? cardProduct.getName() : "");
+        model.addAttribute("sessionApp", app);
         model.addAttribute("lcl", locale.getLanguage());
     }
 
@@ -464,8 +466,6 @@ public class WebController {
         ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
         if (sessionApp == null) {
             LOGGER.error("step8 ERROR. Session app is NULL");
-//            reloadStep1(model, locale);
-//            return "index";
             model.addAttribute("lcl", locale.getLanguage());
             return "error";
         }
@@ -484,10 +484,12 @@ public class WebController {
     protected String showEcommFail(
             Model model,
             @RequestParam(value = "trans_id", defaultValue = "") String ecommTransId,
+            HttpSession httpSession,
             Locale locale
     ) {
         LOGGER.info("/ecomm/fail [POST]. ecommTransId: {}", ecommTransId);
         model.addAttribute("lcl", locale.getLanguage());
+        httpSession.invalidate();
         return "error";
     }
 
@@ -495,10 +497,12 @@ public class WebController {
     protected String showEcommOK(
             Model model,
             @RequestParam(value = "trans_id", defaultValue = "") String ecommTransId,
+            HttpSession httpSession,
             Locale locale
     ) {
         model.addAttribute("lcl", locale.getLanguage());
         String redirectView = mainService.checkPaymentStatusAndGetView(ecommTransId, locale, model);
+        httpSession.invalidate();
         return redirectView;
     }
 

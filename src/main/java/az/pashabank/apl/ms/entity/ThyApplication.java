@@ -9,9 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -82,7 +84,7 @@ public class ThyApplication {
     @Transient
     private MultipartFile[] uploads;
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "app")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "app", fetch = FetchType.LAZY)
     private List<UploadWrapper> uploadWrappers;
 
     @Transient
@@ -90,7 +92,7 @@ public class ThyApplication {
     @Transient
     protected String[] anketDescs;
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "app")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "app", fetch = FetchType.LAZY)
     private List<CRSAnswer> crsAnswers;
     private int step;
 
@@ -141,10 +143,8 @@ public class ThyApplication {
                 .add("tkNoAvailable=" + tkNoAvailable)
                 .add("password='" + password + "'")
                 .add("passwordRepeat='" + passwordRepeat + "'")
-                .add("uploadWrappers=" + uploadWrappers)
                 .add("anketAnswers=" + Arrays.toString(anketAnswers))
                 .add("anketDescs=" + Arrays.toString(anketDescs))
-                .add("crsAnswers=" + crsAnswers)
                 .add("step=" + step)
                 .toString();
     }

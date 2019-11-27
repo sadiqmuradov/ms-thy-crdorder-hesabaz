@@ -44,7 +44,7 @@ public class Payment {
     private String paymentDesc;
     private int appId;
 
-    public Payment(int id, String lang, String ipAddress, String currency, int amount, String description, String ecommTransaction) {
+    public Payment(int id, String lang, String ipAddress, String currency, int amount, String description, String ecommTrans) {
         this.id = id;
         this.lang = lang;
         this.ipAddress = ipAddress;
@@ -54,7 +54,7 @@ public class Payment {
         this.ecommTrans = ecommTrans;
     }
 
-    public Payment(int clientId, String lang, String ipAddress, String currency, int amount, String description, String ecommTransaction, int appId) {
+    public Payment(int clientId, String lang, String ipAddress, String currency, int amount, String description, String ecommTrans, int appId) {
         this.clientId = clientId;
         this.lang = lang;
         this.ipAddress = ipAddress;

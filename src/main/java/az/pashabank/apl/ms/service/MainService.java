@@ -29,6 +29,7 @@ public interface MainService {
     Branch getBranchByCodeAndLang(String branchCode, String lang);
     Payment getPaymentByEcommTransId(String ecommTransId);
     Payment getPaymentByAppId(int appId);
+    Payment getPaymentByAppIdAndStatus(int appId, int status);
     String registerPaymentAndGetView(ThyApplication app, Locale locale, BindingResult result);
     OperationResponse<String> checkPaymentStatus(String ecommTransId, String ipAddress, String lang);
 

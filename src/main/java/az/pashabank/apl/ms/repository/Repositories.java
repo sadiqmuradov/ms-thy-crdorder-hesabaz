@@ -41,4 +41,10 @@ public class Repositories {
     @Autowired
     private PaymentRepo paymentRepo;
 
+    @Autowired
+    private UploadWrapperRepo uploadWrapperRepo;
+
+    @Autowired
+    private CRSAnswerRepo crsAnswerRepo;
+
 }

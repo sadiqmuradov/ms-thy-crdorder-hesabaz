@@ -1,6 +1,7 @@
 package az.pashabank.apl.ms.task;
 
 import az.pashabank.apl.ms.dao.MainDao;
+import az.pashabank.apl.ms.entity.CRSAnswer;
 import az.pashabank.apl.ms.entity.CRSQuestion;
 import az.pashabank.apl.ms.entity.ThyApplication;
 import az.pashabank.apl.ms.entity.UploadWrapper;
@@ -8,8 +9,8 @@ import az.pashabank.apl.ms.enums.ResultCode;
 import az.pashabank.apl.ms.logger.MainLogger;
 import az.pashabank.apl.ms.model.OperationResponse;
 import az.pashabank.apl.ms.model.Payment;
-import az.pashabank.apl.ms.repository.Repositories;
 import az.pashabank.apl.ms.service.MailService;
+import az.pashabank.apl.ms.service.MainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -32,12 +33,12 @@ public class OtrsScheduler {
     private MailService mailService;
 
     @Autowired
-    private Repositories repositories;
+    private MainServiceImpl mainService;
 
     @Scheduled(fixedDelayString = "${schedule.fixedDelay.in.milliseconds.otrs}") // must be 180000
     public void sendCardOrderMails() {
         try {
-            List<ThyApplication> unsentApplications = repositories.getThyApplicationRepo().findAllByPaymentCompletedTrueAndMailSentFalseOrderByCreateDate();
+            List<ThyApplication> unsentApplications = mainService.getUnsentApplications();
             List<String> emails = mainDao.getActiveMails();
             LOGGER.info("-----------------------------------------");
             LOGGER.info("Selected unsent applications and emails");
@@ -54,8 +55,8 @@ public class OtrsScheduler {
         try {
             List<Resource> resources = new ArrayList<>();
             addFileUploads(app, resources);
-            List<CRSQuestion> crsQuestions = repositories.getCrsQuestionRepo().findAllByLangIgnoreCase("en");
-            Payment payment = repositories.getPaymentRepo().findPaymentByAppId(app.getId());
+            List<CRSQuestion> crsQuestions = mainService.getCRSQuestionList("en");
+            Payment payment = mainService.getPaymentByAppId(app.getId());
 
             OperationResponse operationResponse = mailService.sendEmail(app, crsQuestions, payment, emails, resources);
             if (operationResponse.getCode() == ResultCode.OK) {
