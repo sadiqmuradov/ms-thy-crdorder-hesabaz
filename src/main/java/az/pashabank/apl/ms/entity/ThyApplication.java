@@ -91,6 +91,7 @@ public class ThyApplication {
     protected int[] anketAnswers;
     @Transient
     protected String[] anketDescs;
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "app", fetch = FetchType.LAZY)
     private List<CRSAnswer> crsAnswers;
