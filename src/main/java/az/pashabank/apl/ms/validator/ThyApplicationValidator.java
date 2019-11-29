@@ -9,6 +9,14 @@ import az.pashabank.apl.ms.entity.CardProduct;
 import az.pashabank.apl.ms.entity.ThyApplication;
 import az.pashabank.apl.ms.logger.MainLogger;
 import az.pashabank.apl.ms.entity.UploadWrapper;
+import az.pashabank.apl.ms.model.thy.CheckTkRequest;
+import az.pashabank.apl.ms.model.thy.CheckTkRestResponse;
+import az.pashabank.apl.ms.model.thy.EnrollmentChannel;
+import az.pashabank.apl.ms.model.thy.MemberData;
+import az.pashabank.apl.ms.model.thy.MemberDetails;
+import az.pashabank.apl.ms.model.thy.MemberOperations;
+import az.pashabank.apl.ms.model.thy.MemberOperationsRequest;
+import az.pashabank.apl.ms.model.thy.MemberOperationsResponse;
 import az.pashabank.apl.ms.model.thy.MemberProfileData;
 import az.pashabank.apl.ms.model.thy.MobilePhone;
 import az.pashabank.apl.ms.proxy.ThyServiceProxy;
@@ -41,6 +49,7 @@ public class ThyApplicationValidator {
     @Value("${upload.folder.thy_applications}")
     protected String uploadFolder;
 
+    @Value("${upload.folder.thy_applications}")
     public void createUploadFolder(String uploadFolder) {
         try {
             Path uploadFolderPath = Paths.get(uploadFolder);
@@ -192,7 +201,7 @@ public class ThyApplicationValidator {
     }
 
     private boolean isTkNoVerified(ThyApplication app) {
-        /*boolean result = false;
+        boolean result = false;
         CheckTkRequest checkTkRequest = new CheckTkRequest(new MemberDetails(app.getTkNo()));
         CheckTkRestResponse checkTkRestResponse = thyServiceProxy.getMemberDetails(checkTkRequest);
         List<MemberData> memberDataKVPair = checkTkRestResponse.getCheckTkReturn().getMemberDataKVPair();
@@ -212,10 +221,10 @@ public class ThyApplicationValidator {
             app.setPassportSurname(passportSurname);
             result = true;
         }
-        return result;*/
-        app.setPassportName("TEST");
+        return result;
+        /*app.setPassportName("TEST");
         app.setPassportSurname("TESTOV");
-        return true;
+        return true;*/
     }
 
     private void validatePassportName(@NotNull ThyApplication app, Errors errors) {
@@ -264,11 +273,11 @@ public class ThyApplicationValidator {
                         app.getNationality(), app.getPassword(),
                         "EN", app.getGender().toUpperCase()
                 );
-        /*MemberOperations memberOperations = new MemberOperations("CREATE", new EnrollmentChannel(15, 196), memberProfileData);
+        MemberOperations memberOperations = new MemberOperations("CREATE", new EnrollmentChannel(15, 196), memberProfileData);
         MemberOperationsRequest memberOperationsRequest = new MemberOperationsRequest(memberOperations);
         MemberOperationsResponse memberOperationsResponse = thyServiceProxy.createMember(memberOperationsRequest);
-        memberProfileData = memberOperationsResponse.getMemberOperationsReturn().getMemberProfileData();*/
-        memberProfileData.setMemberId("TK466315727");
+        memberProfileData = memberOperationsResponse.getMemberOperationsReturn().getMemberProfileData();
+//        memberProfileData.setMemberId("TK466315727");
         if (memberProfileData == null) {
             errors.addError(
                     new ObjectError(

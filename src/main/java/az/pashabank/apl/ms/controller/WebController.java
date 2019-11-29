@@ -8,17 +8,12 @@ import az.pashabank.apl.ms.entity.City;
 import az.pashabank.apl.ms.entity.Country;
 import az.pashabank.apl.ms.entity.ThyApplication;
 import az.pashabank.apl.ms.entity.UploadWrapper;
-import az.pashabank.apl.ms.enums.ResultCode;
 import az.pashabank.apl.ms.logger.MainLogger;
-import az.pashabank.apl.ms.model.OperationResponse;
-import az.pashabank.apl.ms.model.Payment;
 import az.pashabank.apl.ms.service.MainServiceImpl;
-import az.pashabank.apl.ms.utils.Utils;
 import az.pashabank.apl.ms.validator.ThyApplicationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,14 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 public class WebController {

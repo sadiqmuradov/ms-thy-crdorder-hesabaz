@@ -28,7 +28,7 @@ public class CRSAnswer {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "app_id", nullable = false)
+    @JoinColumn(name = "appId", nullable = false)
     private ThyApplication app;
 
     @Override

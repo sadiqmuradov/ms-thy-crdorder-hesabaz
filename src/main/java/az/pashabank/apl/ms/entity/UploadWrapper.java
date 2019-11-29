@@ -34,7 +34,7 @@ public class UploadWrapper {
     private long fileSize;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "app_id", nullable = false)
+    @JoinColumn(name = "appId", nullable = false)
 //    @JsonIgnore
     private ThyApplication app;
 
