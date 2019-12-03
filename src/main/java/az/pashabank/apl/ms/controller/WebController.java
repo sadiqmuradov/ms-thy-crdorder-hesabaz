@@ -403,7 +403,7 @@ public class WebController {
     }
 
     @GetMapping("/step7")
-    public String showStep7(Model model, HttpSession httpSession, Locale locale) {
+    public String showStep7(Model model, @ModelAttribute("app") ThyApplication app, HttpSession httpSession, Locale locale) {
         ThyApplication sessionApp = (ThyApplication) httpSession.getAttribute("sessionApp");
         if (sessionApp == null) {
             reloadStep1(model, locale);
