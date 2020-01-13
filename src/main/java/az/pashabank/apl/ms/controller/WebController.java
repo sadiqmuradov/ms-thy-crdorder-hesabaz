@@ -133,7 +133,7 @@ public class WebController {
         sessionApp.setStep(2);
         mainService.saveApplication(sessionApp);
         httpSession.setAttribute("sessionApp", sessionApp);
-        return "step3";
+        return "redirect:/step3";
     }
 
     private void setStep2SessionApp(ThyApplication app, ThyApplication sessionApp) {
