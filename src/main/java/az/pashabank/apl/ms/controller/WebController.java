@@ -85,7 +85,7 @@ public class WebController {
             app.setTkNoAvailable(true);
             httpSession.setAttribute("sessionApp", app);
         }
-        return "redirect:/step2";
+        return "step2";
     }
 
     @GetMapping("/step2")
