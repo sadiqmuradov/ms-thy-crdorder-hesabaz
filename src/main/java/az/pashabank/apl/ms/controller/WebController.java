@@ -409,7 +409,7 @@ public class WebController {
             reloadStep1(model, locale);
             return "index";
         }
-        sessionApp.setAmountToPay(1);
+//        sessionApp.setAmountToPay(1);
         reloadStep7(model, locale, sessionApp);
         return "step7";
     }
