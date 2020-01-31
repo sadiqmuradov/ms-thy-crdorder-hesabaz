@@ -281,9 +281,9 @@ public class ThyApplicationValidator {
             errors.addError(
                     new ObjectError(
                             "thy_register_customer_error",
-                            new String[] { "message.errors.global_error" },
+                            new String[] { "" }, // "message.errors.global_error"
                             new Object[] { },
-                            ""
+                            memberOperationsResponse.getResponseHeader().getMessages().get(0).getLocalizedDescription()
                     )
             );
         } else {
