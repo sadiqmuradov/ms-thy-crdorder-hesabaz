@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <link rel="stylesheet" href="media/fonts/Rubik_Az/stylesheet.css">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="media/plugins/niceSelect/nice-select.css">
+    <link rel="stylesheet" href="media/css/style.css">
+    <title>PashaBank THY Miles & Smiles Card Order | Şəxsi məlumat</title>
+</head>
+<body>
+    <div class="page-content step-5-content">
+        <!-- Header-start -->
+        <header class="header-form">
+            <div class="container">
+                <div class="header-top">
+                    <div class="header-top__left-col">
+                        <div class="logo">
+                            <a href="https://www.pashabank.az/lang,az/" target="_blank" title="Pasha Bank">
+                              <picture>
+                                <source srcset="media/img/pashabank_logo_white_375_wm.png" media="(max-width: 639px)">
+                                <img src="media/img/pashabank_logo_white.png" alt="PAŞABank logo">
+                              </picture>
+                            </a>
+                        </div>
+                        <div class="logo-thy-miles-smiles">
+                            <a href="https://www.milesandsmiles.net/" target="_blank" title="Pasha Bank">
+                              <picture>
+                                <source srcset="media/img/thy_miles_smiles_logo_white_375_wm.png" media="(max-width: 639px)">
+                                <img src="media/img/thy_miles_smiles_logo_white.png" alt="Miles&amp;Smiles | Türk Hava Yolları ®">
+                              </picture>  
+                            </a>
+                        </div>
+                        <div class="hesab-az-logo">
+                            <a href="https://hesab.az/" target="_blank">
+                                <img src="media/img/hesab-logo.svg" alt="hesab.az">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="header-top__right-col">
+                        <div class="lang header-lang">
+                            <b>AZ</b>
+                            <picture><img src="media/img/Icon_Down_1x.png" alt="dropdown-image"></picture>
+                            <div class="other-langs">        
+                                <a href="index_en.html" class="language-link">EN</a>
+                                <a href="index_ru.html" class="language-link">RU</a>
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </header>
+        <!-- Header-end -->
+        <div class="content-inner">
+            <div class="container">
+                <h1 class="page-heading">Onlayn müraciət</h1>
+                <div class="main-block">
+                    <div class="steps-all">
+                        <div class="steps__item steps__item--success">
+                            <span class="steps-item__number">1</span>
+                            <span class="steps-item__title">Şəxsi məlumat</span>
+                        </div>
+                        <div class="steps__item steps__item--success">
+                            <span class="steps-item__number">2</span>
+                            <span class="steps-item__title">Kart məlumatları</span>
+                        </div>
+                        <div class="steps__item steps__item--success">
+                            <span class="steps-item__number">3</span>
+                            <span class="steps-item__title">Anket məlumatları</span>
+                        </div>
+                        <div class="steps__item steps__item--success">
+                            <span class="steps-item__number">4</span>
+                            <span class="steps-item__title">Sifariş məlumatlarının təsdiqi</span>
+                        </div>
+                        <div class="steps__item steps__item--active">
+                            <span class="steps-item__number">5</span>
+                            <span class="steps-item__title">Ödəniş</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">6</span>
+                            <span class="steps-item__title">Ödəniş nəticələri</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">7</span>
+                            <span class="steps-item__title">Məlumatların yoxlanışı</span>
+                        </div>
+                    </div>
+                    <div class="form-wrapper">
+                        <h2 class="step-heading">Anket məlumatları</h2>
+                        <form action="/ms-thy-crdorder-hesabaz/step5" method="post">
+                            <div class="form-groups__row">
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>1.</span>
+                                        <span>Siz xaricdə olan hər hansı bank hesabına dövri ödənişlər edilməsi ilə bağlı göstəriş vermisinizmi və ya verməyi planlaşdırırsınızmı?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(1, 'show')" id="anketAnswers01" name="anketAnswers[0]">
+                                            <label for="anketAnswers01" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(1, 'hide')" id="anketAnswers02" name="anketAnswers[0]">
+                                            <label for="anketAnswers02" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <div id="anketDescs1" class="form-group form-group--full-width d-none">
+                                        <label>Ödəniş ediləcək ölkələrin adları:</label>
+                                        <input type="text" class="form-control" id="anketDescs0" name="anketDescs[0]" value="">
+                                    </div>
+                                    <span class="inputs-error">Anket suallarına “Bəli” cavabı verdiyiniz halda, cavabı əlavə şərhləndirmək də xahiş olunur</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>2.</span>
+                                        <span>Siz xaricdə ünvanı olan şəxsə etibarnamə və ya imza səlahiyyəti vermisinizmi və ya verməyi planlaşdırırsınızmı?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(2, 'show')" id="anketAnswers11" name="anketAnswers[1]">
+                                            <label for="anketAnswers11" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(2, 'hide')" id="anketAnswers12" name="anketAnswers[1]">
+                                            <label for="anketAnswers12" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <div id="anketDescs2" class="form-group form-group--full-width d-none">
+                                        <label>Etibarnamə veriləcək şəxsin ünvanı olduğu ölkələrin adları:</label>
+                                        <input type="text" class="form-control" id="anketDescs1" name="anketDescs[1]" value="">
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>3.</span>
+                                        <span>Maliyyə institutuna öz yeganə ünvanınız kimi "vasitəçi ünvanı" və ya "əmanət ünvanı" təqdim etmək fikrindəsinizmi?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(3, 'show')" id="anketAnswers21" name="anketAnswers[2]">
+                                            <label for="anketAnswers21" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(3, 'hide')" id="anketAnswers22" name="anketAnswers[2]">
+                                            <label for="anketAnswers22" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>4.</span>
+                                        <span>Siz xarici telefon nömrəsinə sahibsinizmi?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(4, 'show')" id="anketAnswers31" name="anketAnswers[3]">
+                                            <label for="anketAnswers31" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(4, 'hide')" id="anketAnswers32" name="anketAnswers[3]">
+                                            <label for="anketAnswers32" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <div id="anketDescs4" class="form-group form-group--full-width d-none">
+                                        <label>Telefon nömrəsinə sahib olduğunuz ölkələrin adları:</label>
+                                        <input type="text" class="form-control" id="anketDescs3" name="anketDescs[3]" value="">
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>5.</span>
+                                        <span>Siz "Green Card"a sahibsinizmi (etibarlılıq müddətindən aslı olmayaraq)?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(5, 'show')" id="anketAnswers41" name="anketAnswers[4]">
+                                            <label for="anketAnswers41" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(5, 'hide')" id="anketAnswers42" name="anketAnswers[4]">
+                                            <label for="anketAnswers42" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>6.</span>
+                                        <span>Siz xaricdə Müəyyən Müddət Keçirmə Testinin şərtlərini təmin edirsiniz mi? (Xarici ölkə ərazisində 183 gün və ya daha uzun müddət keçirdiyiniz halda Testin Şərtlərini təmin etmiş hesab olunursunuz. ABŞ rezidentliyini müəyyən etmək üçün hesablama aşağıdakı qaydada aparılır: [Cari ildə bütün günlər (ən azı 31 gün)] + [əvvəlki ildəki günlərin 1/3-i] + [iki il əvvəlki günlərin 1/6-i] ≥183 gün. Bu qayda diplomat, müəllim, tələbə və ya idmançılara münasibətdə tətbiq olunmur.</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(6, 'show')" id="anketAnswers51" name="anketAnswers[5]">
+                                            <label for="anketAnswers51" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(6, 'hide')" id="anketAnswers52" name="anketAnswers[5]">
+                                            <label for="anketAnswers52" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <div id="anketDescs6" class="form-group form-group--full-width d-none">
+                                        <label>Testin şərtləri təmin edilən ölkələr:</label>
+                                        <input type="text" class="form-control" id="anketDescs5" name="anketDescs[5]" value="">
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>7.</span>
+                                        <span>Siz siyasi xadimsinizmi? Siyasi Xadim hər hansı dövlətdə mühüm ictimai vəzifə tutan və ya əvvəllər belə vəzifəni tutmuş şəxslər (dövlət və ya hökumət başçıları, nüfuzlu siyasətçilər, hökumət üzvləri, yuxarı instansiya məhkəmələrinin hakimləri, yüksək rütbəli hərbi qulluqçular, dövlət mülkiyyətində olan müəssisələrin rəhbər vəzifəli şəxsləri, siyasi partiya vəzifəli şəxsləri), onların ailə üzvləri və yaxın qohumları.</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(7, 'show')" id="anketAnswers61" name="anketAnswers[6]">
+                                            <label for="anketAnswers61" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(7, 'hide')" id="anketAnswers62" name="anketAnswers[6]">
+                                            <label for="anketAnswers62" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <div id="anketDescs7" class="form-group form-group--full-width d-none">
+                                        <label>Zəhmət olmasa açıqlayın:</label>
+                                        <input type="text" class="form-control" id="anketDescs6" name="anketDescs[6]" value="">
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>8.</span>
+                                        <span>Cinayət məsuliyyətinə cəlb edilmisinizmi?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(8, 'show')" id="anketAnswers71" name="anketAnswers[7]">
+                                            <label for="anketAnswers71" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(8, 'hide')" id="anketAnswers72" name="anketAnswers[7]">
+                                            <label for="anketAnswers72" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <div id="anketDescs8" class="form-group form-group--full-width d-none">
+                                        <label>Zəhmət olmasa, səbəbi qeyd edin:</label>
+                                        <input type="text" class="form-control" id="anketDescs7" name="anketDescs[7]" value="">
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>9.</span>
+                                        <span>Məhkumluğunuz olubmu?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(9, 'show')" id="anketAnswers81" name="anketAnswers[8]">
+                                            <label for="anketAnswers81" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(9, 'hide')" id="anketAnswers82" name="anketAnswers[8]">
+                                            <label for="anketAnswers82" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>10.</span>
+                                        <span>Siz ABŞ Vətəndaşısınız?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(10, 'show')" id="anketAnswers91" name="anketAnswers[9]">
+                                            <label for="anketAnswers91" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(10, 'hide')" id="anketAnswers92" name="anketAnswers[9]">
+                                            <label for="anketAnswers92" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>11.</span>
+                                        <span>Siz Azərbaycan ilə yanaşı hər hansı digər ölkədə vergi ödəyicisisinizmi?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(11, 'show')" id="anketAnswers101" name="anketAnswers[10]">
+                                            <label for="anketAnswers101" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(11, 'hide')" id="anketAnswers102" name="anketAnswers[10]">
+                                            <label for="anketAnswers102" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <div id="anketDescs11" class="form-group form-group--full-width d-none">
+                                        <label>Zəhmət olmasa, vergi məqsədləri üçün rezidenti olduğunuz ölkəni /yurisdiksiyasını qeyd edin:</label>
+                                        <input type="text" class="form-control" id="anketDescs10" name="anketDescs[10]" value="">
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>12.</span>
+                                        <span>İllik qross gəliriniz nə qədərdir?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(12, 'show')" id="anketAnswers111" name="anketAnswers[11]">
+                                            <label for="anketAnswers111" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(12, 'hide')" id="anketAnswers112" name="anketAnswers[11]">
+                                            <label for="anketAnswers112" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>13.</span>
+                                        <span>İllik net gəliriniz nə qədərdir?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(13, 'show')" id="anketAnswers121" name="anketAnswers[12]">
+                                            <label for="anketAnswers121" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(13, 'hide')" id="anketAnswers122" name="anketAnswers[12]">
+                                            <label for="anketAnswers122" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label for="male">
+                                        <span>14.</span>
+                                        <span>Əsas gəlir qaynağınız nədir?</span>
+                                    </label>
+                                    <div class="checks-group">
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="1" onchange="toggleAnketDesc(14, 'show')" id="anketAnswers131" name="anketAnswers[13]">
+                                            <label for="anketAnswers131" class="form-check-label">Bəli</label>
+                                        </div>
+                                        <div class="checks-group__item">
+                                            <input type="radio" class="form-check-input" value="2" onchange="toggleAnketDesc(14, 'hide')" id="anketAnswers132" name="anketAnswers[13]">
+                                            <label for="anketAnswers132" class="form-check-label">Xeyr</label>
+                                        </div>
+                                    </div>
+                                    <span class="inputs-error">Xana doldurulmalidir</span>
+                                </div>
+                            </div>
+                            <div class="form-groups__row">
+                                <div class="form-group form-group--full-width">  
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="acceptedTerms" class="form-check-input" name="acceptedTerms" value="true">
+                                        <label for="acceptedTerms">Əlavə etdiyim məlumatın düzgünlüyünü təsdiq edirəm və buna görə şəxsən məsuliyyət daşıyıram.</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-groups__row">
+                                <div class="form-group form-group--full-width">  
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="acceptedGsa" class="form-check-input" name="acceptedGsa" value="true">
+                                        <label for="acceptedGsa">Ümumi şərtlər toplusu ilə tanış olduğumu təsdiq edirəm. <a href="#">Ümumi şərtlər toplusunu buradan oxu.</a></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="buttons-group">
+                                <input type="submit" name="back" class="btn btn--light" value="Geri">
+                                <input type="submit" class="btn" value="İrəli">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="media/plugins/niceSelect/jquery.nice-select.js"></script>
+    <script>
+        function toggleAnketDesc(idx, ind) {
+            if (ind === 'show') {
+                $('#anketDescs' + idx).removeClass('d-none');
+            } else {
+                $('#anketDescs' + idx).addClass('d-none');
+            }
+            $('#anketAnswersError' + idx).text("");
+        };
+    </script>
+    <script src="media/js/script.js"></script>
+
+</body>
+</html>

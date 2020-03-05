@@ -21,7 +21,7 @@
                         <div class="logo">
                             <a href="https://www.pashabank.az/lang,az/" target="_blank" title="Pasha Bank">
                               <picture>
-                                <source srcset="media/img/pashabank_logo_white_375_wm.png" media="(max-width: 440px)">
+                                <source srcset="media/img/pashabank_logo_white_375_wm.png" media="(max-width: 639px)">
                                 <img src="media/img/pashabank_logo_white.png" alt="PAŞABank logo">
                               </picture>
                             </a>
@@ -29,7 +29,7 @@
                         <div class="logo-thy-miles-smiles">
                             <a href="https://www.milesandsmiles.net/" target="_blank" title="Pasha Bank">
                               <picture>
-                                <source srcset="media/img/thy_miles_smiles_logo_white_375_wm.png" media="(max-width: 440px)">
+                                <source srcset="media/img/thy_miles_smiles_logo_white_375_wm.png" media="(max-width: 639px)">
                                 <img src="media/img/thy_miles_smiles_logo_white.png" alt="Miles&amp;Smiles | Türk Hava Yolları ®">
                               </picture>  
                             </a>
@@ -59,11 +59,11 @@
                 <h1 class="page-heading">Onlayn müraciət</h1>
                 <div class="main-block">
                     <div class="steps-all">
-                        <div class="steps__item steps__item--active">
+                        <div class="steps__item steps__item--success">
                             <span class="steps-item__number">1</span>
                             <span class="steps-item__title">Şəxsi məlumat</span>
                         </div>
-                        <div class="steps__item">
+                        <div class="steps__item steps__item--active">
                             <span class="steps-item__number">2</span>
                             <span class="steps-item__title">Kart məlumatları</span>
                         </div>
@@ -83,39 +83,40 @@
                             <span class="steps-item__number">6</span>
                             <span class="steps-item__title">Ödəniş nəticələri</span>
                         </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">7</span>
+                            <span class="steps-item__title">Məlumatların yoxlanışı</span>
+                        </div>
                     </div>
                     <div class="form-wrapper">
                         <h2 class="step-heading">Şəxsi məlumat</h2>
-                        <div class="service-error-block">
-                            <span class="service-error-block__field">*Internal service error</span>
-                        </div>
                         <form action="index" method="post">
                             <div class="form-groups__row">
-                                <div class="form-group form-group__error">
+                                <div class="form-group">
                                     <label>Ad</label>
                                     <input type="text" class="form-control" placeholder="Adınızı daxil edin" id="name" name="name" value="">
                                     <span class="inputs-error">Xana doldurulmalidir</span>
                                 </div>
-                                <div class="form-group form-group__error">
+                                <div class="form-group">
                                     <label>Soyad</label>
                                     <input type="text" class="form-control" placeholder="Soyadınızı daxil edin" id="surname" name="surname" value="">
                                     <span class="inputs-error">Xana doldurulmalidir</span>
                                 </div>
                             </div>
                             <div class="form-groups__row">
-                                <div class="form-group form-group__error">
+                                <div class="form-group">
                                     <label>Ata adı</label>
                                     <input type="text" class="form-control" placeholder="Ata adınızı daxil edin" id="patronymic" name="patronymic" value="">
                                     <span class="inputs-error">Xana doldurulmalidir</span>
                                 </div>
-                                <div class="form-group form-group__error">
+                                <div class="form-group">
                                     <label>Doğum tarixi</label>
                                     <input type="text" class="form-control birth-date" placeholder="??label.index.birth_date_en??" id="birthDate" name="birthDate" value="">
                                     <span class="inputs-error">Xana doldurulmalidir</span>
                                 </div>
                             </div>
                             <div class="form-groups__row">
-                                <div class="form-group form-group__error">
+                                <div class="form-group">
                                     <label>Rezidentlik statusu</label>
                                     <select class="form-control" id="residency" name="residency">
                                         <option value="Rezident">Rezident</option>
@@ -123,7 +124,7 @@
                                     </select>
                                     <span class="inputs-error">Xana doldurulmalidir</span>
                                 </div>
-                                <div class="form-group form-group__error">
+                                <div class="form-group">
                                     <label>Vətəndaşlıq</label>
                                     <select id="nationality" name="nationality" class="form-control">
                                         <option value="AF">Afghanistan</option>
@@ -388,7 +389,7 @@
                                 </div>
                             </div>
                             <div class="form-groups__row">
-                                <div class="form-group form-group__error">
+                                <div class="form-group">
                                     <label for="male">Cinsi</label>
                                     <div class="form-group">
                                         <div class="checks-group">
@@ -404,21 +405,21 @@
                                     </div>
                                     <span class="inputs-error">Xana doldurulmalidir</span>
                                 </div>
-                                <div class="form-group form-group__error">
+                                <div class="form-group">
                                     <label>Məxfi şifrə</label>
                                     <input type="text" class="form-control" placeholder="min. 5 – maks. 8 rəqəm" id="secretCode" name="secretCode" value="">
                                     <span class="inputs-error">Xana doldurulmalidir</span>
                                 </div>
                             </div>
                             <div class="form-groups__row">
-                                <div class="form-group form-group__error form-group--full-width">
+                                <div class="form-group form-group--full-width">
                                     <label>İş yeri</label>
                                     <input type="text" class="form-control" placeholder="İş yerinizi daxil edin" id="workplace" name="workplace" value="">
                                     <span class="inputs-error">Xana doldurulmalidir</span>
                                 </div>
                             </div>
                             <div class="form-groups__row">
-                                <div class="form-group form-group__error form-group--full-width">
+                                <div class="form-group form-group--full-width">
                                     <label>Vəzifə</label>
                                     <input type="text" class="form-control" placeholder="Vəzifənizi daxil edin" id="position" name="position" value="">
                                     <span class="inputs-error">Xana doldurulmalidir</span>

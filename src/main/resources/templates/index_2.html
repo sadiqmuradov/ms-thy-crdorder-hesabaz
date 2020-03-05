@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" th:href="@{/media/fonts/Rubik_Az/stylesheet.css}">
+    <link rel="stylesheet" th:href="@{/media/plugins/niceSelect/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/media/css/style.css}">
+
+    <title>PashaBank THY Miles & Smiles Card Order | Şəxsi məlumat</title>
+</head>
+<body>
+    <div class="page-content step-1-content">
+        <!-- Header-start -->
+        <header class="header-form">
+            <div class="container">
+                <div class="header-top">
+                    <div class="header-top__left-col">
+                        <div class="logo">
+                            <a href="https://www.pashabank.az/lang,az/" target="_blank" title="Pasha Bank">
+                              <picture>
+                                <source srcset="media/img/pashabank_logo_white_375_wm.png" media="(max-width: 639px)">
+                                <img th:src="@{/media/img/pashabank_logo_white.png}" alt="PAŞABank logo">
+                              </picture>
+                            </a>
+                        </div>
+                        <div class="logo-thy-miles-smiles">
+                            <a href="https://www.milesandsmiles.net/" target="_blank" title="Pasha Bank">
+                              <picture>
+                                <source srcset="media/img/thy_miles_smiles_logo_white_375_wm.png" media="(max-width: 639px)">
+                                <img th:src="@{/media/img/thy_miles_smiles_logo_white.png}" alt="Miles&amp;Smiles | Türk Hava Yolları ®">
+                              </picture>  
+                            </a>
+                        </div>
+                        <div class="hesab-az-logo">
+                            <a href="https://hesab.az/" target="_blank">
+                                <img th:src="@{/media/img/hesab-logo.svg}" alt="hesab.az">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="header-top__right-col">
+                        <div class="lang header-lang">
+                            <b th:if="${lcl == 'az'}">AZ</b>
+                            <b th:if="${lcl == 'en'}">EN</b>
+                            <b th:if="${lcl == 'ru'}">RU</b>
+                            <picture><img th:src="@{/media/img/Icon_Down_1x.png}" alt="dropdown-image"></picture>
+                            <div class="other-langs">
+                                <a th:if="${lcl == 'az'}" th:href="@{index(lang=en)}" class="language-link">EN</a>
+                                <a th:if="${lcl == 'az'}" th:href="@{index(lang=ru)}" class="language-link">RU</a>
+                                <a th:if="${lcl == 'en'}" th:href="@{index(lang=az)}" class="language-link">AZ</a>
+                                <a th:if="${lcl == 'en'}" th:href="@{index(lang=ru)}" class="language-link">RU</a>
+                                <a th:if="${lcl == 'ru'}" th:href="@{index(lang=az)}" class="language-link">AZ</a>
+                                <a th:if="${lcl == 'ru'}" th:href="@{index(lang=en)}" class="language-link">EN</a>
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </header>
+        <!-- Header-end -->
+        <div class="content-inner">
+            <div class="container">
+                <h1 class="page-heading" th:text="#{label.index.online_application}">Onlayn müraciət</h1>
+                <div class="main-block">
+                    <div class="steps-all">
+                        <div class="steps__item steps__item--active">
+                            <span class="steps-item__number">1</span>
+                            <span class="steps-item__title" th:text="#{label.index.personal_info}">Şəxsi məlumat</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">2</span>
+                            <span class="steps-item__title" th:text="#{label.index.address_contact_info}">Ünvan və əlaqə vasitələri</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">3</span>
+                            <span class="steps-item__title" th:text="#{label.index.tk_no}">TK nömrə</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">4</span>
+                            <span class="steps-item__title" th:text="#{label.index.required_documents}">Sənədlər</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">5</span>
+                            <span class="steps-item__title" th:text="#{label.index.anket_info}">Anket məlumatları</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">6</span>
+                            <span class="steps-item__title" th:text="#{label.index.card_info}">Kart məlumatları</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">7</span>
+                            <span class="steps-item__title" th:text="#{label.index.confirmation_of_order}">Məlumatların yoxlanışı</span>
+                        </div>
+                    </div>
+                    <div class="form-wrapper">
+                        <h2 class="step-heading" th:text="#{label.index.personal_info}">Şəxsi məlumat</h2>
+                        <form action="index" th:object="${app}" method="post">
+                            <div class="form-groups__row">
+                                <div class="form-group">
+                                    <label th:text="#{label.index.name}">Ad</label>
+                                    <input type="text" th:field="*{name}" class="form-control" th:placeholder="#{placeholder.index.name}">
+                                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="inputs-error">Xana doldurulmalıdir</span>
+                                </div>
+                                <div class="form-group">
+                                    <label th:text="#{label.index.surname}">Soyad</label>
+                                    <input type="text" th:field="*{surname}" class="form-control" th:placeholder="#{placeholder.index.surname}">
+                                    <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="inputs-error">Xana doldurulmalıdir</span>
+                                </div>
+                            </div>
+                            <div class="form-groups__row">
+                                <div class="form-group">
+                                    <label th:text="#{label.index.patronymic}">Ata adı</label>
+                                    <input type="text" th:field="*{patronymic}" class="form-control" th:placeholder="#{placeholder.index.patronymic}">
+                                    <span th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}" class="inputs-error">Xana doldurulmalıdir</span>
+                                </div>
+                                <div class="form-group">
+                                    <label th:text="#{label.index.birth_date}">Doğum tarixi</label>
+                                    <input type="text" th:field="*{birthDate}" class="form-control birth-date" th:placeholder="#{placeholder.index.birth_date}">
+                                    <span th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" class="inputs-error">Xana doldurulmalıdir</span>
+                                </div>
+                            </div>
+                            <div class="form-groups__row">
+                                <div class="form-group">
+                                    <label th:text="#{label.index.residency}">Rezidentlik statusu</label>
+                                    <select th:field="*{residency}" class="form-control">
+                                        <option value="Rezident" selected="selected">Rezident</option>
+                                        <option value="Qeyri-rezident">Qeyri-rezident</option>
+                                    </select>
+                                    <span th:if="${#fields.hasErrors('residency')}" th:errors="*{residency}" class="inputs-error">Xana doldurulmalıdir</span>
+                                </div>
+                                <div class="form-group">
+                                    <label th:text="#{label.index.nationality}">Vətəndaşlıq</label>
+                                    <select id="nationality" name="nationality" class="form-control">
+                                        <option th:each="country : ${countryList}"
+                                                th:value="${country.code}"
+                                                th:text="${country.name}"
+                                                th:selected="${country.code == 'AZ'}">
+                                        </option>
+                                    </select>
+                                    <span th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}" class="inputs-error">Xana doldurulmalıdir</span>
+                                </div>
+                            </div>
+                            <div class="form-groups__row">
+                                <div class="form-group">
+                                    <label for="male" th:text="#{label.index.gender}">Cinsi</label>
+                                    <div class="form-group">
+                                        <div class="checks-group">
+                                            <div class="checks-group__item">
+                                                <input type="radio" id="male" class="form-check-input" th:field="*{gender}" value="M">
+                                                <label for="male" class="form-check-label">Kişi</label>
+                                            </div>
+                                            <div class="checks-group__item">
+                                                <input type="radio" id="female" class="form-check-input" th:field="*{gender}" value="F">
+                                                <label for="female" class="form-check-label">Qadın</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="inputs-error">Xana doldurulmalıdir</span>
+                                </div>
+                                <div class="form-group">
+                                    <label th:text="#{label.index.secret_code}">Məxfi şifrə</label>
+                                    <input type="text" th:field="*{secretCode}" class="form-control" th:placeholder="#{placeholder.index.secret_code}">
+                                    <span th:if="${#fields.hasErrors('secretCode')}" th:errors="*{secretCode}" class="inputs-error">Xana doldurulmalıdir</span>
+                                </div>
+                            </div>
+                            <div class="form-groups__row">
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.index.workplace}">İş yeri</label>
+                                    <input type="text" th:field="*{workplace}" class="form-control" th:placeholder="#{placeholder.index.workplace}">
+                                    <span th:if="${#fields.hasErrors('workplace')}" th:errors="*{workplace}" class="inputs-error">Xana doldurulmalıdir</span>
+                                </div>
+                            </div>
+                            <div class="form-groups__row">
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.index.position}">Vəzifə</label>
+                                    <input type="text" th:field="*{position}" class="form-control" th:placeholder="#{placeholder.index.position}">
+                                    <span th:if="${#fields.hasErrors('position')}" th:errors="*{position}" class="inputs-error">Xana doldurulmalıdir</span>
+                                </div>
+                            </div>
+                            <div class="buttons-group">
+                                <input type="submit" class="btn" value="İrəli">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/media/plugins/niceSelect/jquery.nice-select.js}"></script>
+    <script th:src="@{/media/js/script.js}"></script>
+
+</body>
+</html>

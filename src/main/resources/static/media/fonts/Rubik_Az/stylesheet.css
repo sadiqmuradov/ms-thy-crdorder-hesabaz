@@ -1,0 +1,39 @@
+
+@font-face {
+    font-family: 'rubik_az';
+    src: url('rubik_az-light-webfont.woff2') format('woff2'),
+         url('rubik_az-light-webfont.woff') format('woff');
+    font-display: swap;
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'rubik_az';
+    src: 
+         url('rubik_az-regular-webfont.woff') format('woff'),
+         url('rubik_az-regular-webfont.ttf') format('truetype');
+    font-display: swap;
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'rubik_az';
+    src: url('rubik_az-medium-webfont.woff2') format('woff2'),
+         url('rubik_az-medium-webfont.woff') format('woff');
+    font-display: swap;
+    font-weight: 500;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'rubik_az';
+    src: url('rubik_az-bold-webfont.woff2') format('woff2'),
+         url('rubik_az-bold-webfont.woff') format('woff');
+    font-display: swap;
+    font-weight: bold;
+    font-style: normal;
+}
