@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,8 +23,8 @@
             <form action="index" th:object="${app}" method="post">
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label>Ad</label>
-                        <input type="text" th:field="*{name}" class="form-control" placeholder="Adınızı daxil edin">
+                        <label th:text="#{label.index.name}">Ad</label>
+                        <input type="text" th:field="*{name}" class="form-control" th:placeholder="#{placeholder.index.name}">
                         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
                     </div>
                     <div class="col-md-6 form-group">
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <label>Doğum tarixi</label>
-                        <input type="text" th:field="*{birthDate}" class="form-control birth-date" th:placeholder="#{label.index.birth_date}">
+                        <input type="text" th:field="*{birthDate}" class="form-control birth-date" th:placeholder="#{placeholder.index.birth_date}">
                         <span th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" class="text-danger"></span>
                     </div>
                 </div>
