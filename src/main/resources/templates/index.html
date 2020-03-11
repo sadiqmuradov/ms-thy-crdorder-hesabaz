@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" th:href="@{/media/fonts/Rubik_Az/stylesheet.css}">
     <link rel="stylesheet" th:href="@{/media/plugins/niceSelect/nice-select.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{media/plugins/datepicker/bootstrap-datetimepicker.css}">
     <link rel="stylesheet" th:href="@{/media/css/style.css}">
 
     <title th:text="#{label.index.title}">PashaBank THY Miles & Smiles Card Order | Şəxsi məlumat</title>
@@ -190,8 +192,22 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{media/plugins/datepicker/moment.js}"></script>
+    <script th:src="@{media/plugins/datepicker/bootstrap-datetimepicker.js}"></script>
     <script th:src="@{/media/plugins/niceSelect/jquery.nice-select.js}"></script>
     <script th:src="@{/media/js/script.js}"></script>
+
+    <script>
+        $(function () {
+            $('.birth-date').datetimepicker({
+                useCurrent: false,
+                format:'DD.MM.YYYY',
+                showTodayButton:true,
+                showClose: true,
+                calendarWeeks:true,
+            });
+        });
+    </script>
 
 </body>
 </html>

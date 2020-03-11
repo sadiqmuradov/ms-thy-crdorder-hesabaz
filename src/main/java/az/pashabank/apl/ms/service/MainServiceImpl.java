@@ -9,6 +9,8 @@ import az.pashabank.apl.ms.entity.CardProduct;
 import az.pashabank.apl.ms.entity.City;
 import az.pashabank.apl.ms.entity.Country;
 import az.pashabank.apl.ms.entity.CouponCode;
+import az.pashabank.apl.ms.entity.NetGrossIncomeEntity;
+import az.pashabank.apl.ms.entity.SourceOfIncomeEntity;
 import az.pashabank.apl.ms.entity.ThyApplication;
 import az.pashabank.apl.ms.entity.UploadWrapper;
 import az.pashabank.apl.ms.enums.ResultCode;
@@ -112,6 +114,16 @@ public class MainServiceImpl implements MainService {
 
     public List<CRSQuestion> getCRSQuestionList(String lang) {
         return repositories.getCrsQuestionRepo().findAllByLangIgnoreCase(lang);
+    }
+
+    @Override
+    public List<NetGrossIncomeEntity> getNetGrossIncomesByLang(String lang) {
+        return repositories.getNetGrossIncomeRepo().findNetGrossIncomeEntitiesByLangIgnoreCaseOrderById(lang);
+    }
+
+    @Override
+    public List<SourceOfIncomeEntity> getSourcesOfIncomeByLang(String lang) {
+        return repositories.getSourceOfIncomeRepo().findSourceOfIncomeEntitiesByLangIgnoreCaseOrderById(lang);
     }
 
     @Override
