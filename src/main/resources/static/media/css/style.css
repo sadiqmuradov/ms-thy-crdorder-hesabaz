@@ -581,7 +581,7 @@ input[type="checkbox"] + label a:hover {
   padding-top: 9px;
   font-weight: normal;
   color: #ea5b6a;
-  display: none;
+  /*display: none;*/
 }
 
 .form-wrapper .form-group.form-group__error input[type='text'], .form-wrapper .form-group.form-group__error input[type='password'], .form-wrapper .form-group.form-group__error input[type='date'], .form-wrapper .form-group.form-group__error input[type='number'], .form-wrapper .form-group.form-group__error .nice-select, .form-wrapper .form-group.form-group__error .nice-select.open .list {

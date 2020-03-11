@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" th:href="@{/media/fonts/Rubik_Az/stylesheet.css}">
+    <link rel="stylesheet" th:href="@{/media/css/style.css}">
+
+    <title th:text="#{label.step7.title}">PaşaBank THY Miles & Smiles Kart Sifarişi | Məlumatların Yoxlanışı</title>
+</head>
+<body>
+    <div class="page-content step-7-content">
+        <!-- Header-start -->
+        <header class="header-form">
+            <div class="container">
+                <div class="header-top">
+                    <div class="header-top__left-col">
+                        <div class="logo">
+                            <a href="https://www.pashabank.az/lang,az/" target="_blank" title="Pasha Bank">
+                                <picture>
+                                    <source srcset="media/img/pashabank_logo_white_375_wm.png" media="(max-width: 639px)">
+                                    <img th:src="@{/media/img/pashabank_logo_white.png}" alt="PAŞABank logo">
+                                </picture>
+                            </a>
+                        </div>
+                        <div class="logo-thy-miles-smiles">
+                            <a href="https://www.milesandsmiles.net/" target="_blank" title="Pasha Bank">
+                                <picture>
+                                    <source srcset="media/img/thy_miles_smiles_logo_white_375_wm.png" media="(max-width: 639px)">
+                                    <img th:src="@{/media/img/thy_miles_smiles_logo_white.png}" alt="Miles&amp;Smiles | Türk Hava Yolları ®">
+                                </picture>
+                            </a>
+                        </div>
+                        <div class="hesab-az-logo">
+                            <a href="https://hesab.az/" target="_blank">
+                                <img th:src="@{media/img/hesab-logo.svg}" alt="hesab.az">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="header-top__right-col">
+                        <div class="lang header-lang">
+                            <b th:if="${lcl == 'az'}">AZ</b>
+                            <b th:if="${lcl == 'en'}">EN</b>
+                            <b th:if="${lcl == 'ru'}">RU</b>
+                            <picture><img th:src="@{/media/img/Icon_Down_1x.png}" alt="dropdown-image"></picture>
+                            <div class="other-langs">
+                                <a th:if="${lcl == 'az'}" th:href="@{step7(lang=en)}" class="language-link">EN</a>
+                                <a th:if="${lcl == 'az'}" th:href="@{step7(lang=ru)}" class="language-link">RU</a>
+                                <a th:if="${lcl == 'en'}" th:href="@{step7(lang=az)}" class="language-link">AZ</a>
+                                <a th:if="${lcl == 'en'}" th:href="@{step7(lang=ru)}" class="language-link">RU</a>
+                                <a th:if="${lcl == 'ru'}" th:href="@{step7(lang=az)}" class="language-link">AZ</a>
+                                <a th:if="${lcl == 'ru'}" th:href="@{step7(lang=en)}" class="language-link">EN</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Header-end -->
+        <div class="content-inner">
+            <div class="container">
+                <h1 class="page-heading" th:text="#{label.general.online_application}">Onlayn müraciət</h1>
+                <div class="main-block">
+                    <div class="steps-all">
+                        <div class="steps__item steps__item--success">
+                            <span class="steps-item__number">1</span>
+                            <span class="steps-item__title" th:text="#{label.general.personal_info}">Şəxsi məlumat</span>
+                        </div>
+                        <div class="steps__item steps__item--success">
+                            <span class="steps-item__number">2</span>
+                            <span class="steps-item__title" th:text="#{label.general.address_contact_info}">Ünvan və əlaqə vasitələri</span>
+                        </div>
+                        <div class="steps__item steps__item--success">
+                            <span class="steps-item__number">3</span>
+                            <span class="steps-item__title" th:text="#{label.general.tk_no}">TK nömrə</span>
+                        </div>
+                        <div class="steps__item steps__item--success">
+                            <span class="steps-item__number">4</span>
+                            <span class="steps-item__title" th:text="#{label.general.required_documents}">Lazımi sənədlər</span>
+                        </div>
+                        <div class="steps__item steps__item--success">
+                            <span class="steps-item__number">5</span>
+                            <span class="steps-item__title" th:text="#{label.general.anket_info}">Anket məlumatları</span>
+                        </div>
+                        <div class="steps__item steps__item--success">
+                            <span class="steps-item__number">6</span>
+                            <span class="steps-item__title" th:text="#{label.general.card_info}">Kart məlumatları</span>
+                        </div>
+                        <div class="steps__item steps__item--active">
+                            <span class="steps-item__number">7</span>
+                            <span class="steps-item__title" th:text="#{label.general.confirmation_of_order}">Məlumatların yoxlanışı</span>
+                        </div>
+                    </div>
+                    <div class="form-wrapper">
+                        <h2 class="step-heading" th:text="#{label.general.confirmation_of_order}">Məlumatların yoxlanışı</h2>
+                        <form th:action="@{/step7}" th:object="${app}" method="post">
+                            <div class="form-groups__row">
+                                <div class="form-group__description">
+                                    <span class="form-group-description__title" th:text="#{label.step7.description_title}">Xahiş edirik aşağıdakı məlumatların düzgünlüyünü təsdiq edin</span>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.step7.full_name}">Ad, soyad, ata adı :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.name} + ' ' + ${sessionApp.surname} + ' ' + ${sessionApp.patronymic}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.index.birth_date} + ' :'">Doğum tarixi :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.birthDate}">31.01.1989</div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.index.residency} + ' :'">Rezidentlik statusu :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.residency}">Rezident</div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.index.nationality} + ' :'">Vətəndaşlıq :</label>
+                                    <div class="permanent-value" th:text="${nationality}">Azerbaijan</div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.index.gender} + ' :'">Cinsi :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.gender == 'M'} ? #{label.step7.male} : #{label.step7.female}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.index.secret_code} + ' :'">Məxfi şifrə :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.secretCode}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.index.workplace} + ' :'">İş yeri :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.workplace}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.index.position} + ' :'">Vəzifə :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.position}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.step2.city} + ' :'">Şəhər :</label>
+                                    <div class="permanent-value" th:text="${registrationCity}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.step2.registration_address} + ' :'">Qeydiyyat ünvanı :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.registrationAddress}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.step2.mobile_no} + ' :'">Mobil nömrə :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.mobileNumber}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.step2.email} + ' :'">E-poçt ünvanı :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.email}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.step2.domicile_address} + ' :'">Faktiki ünvan :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.domicileSame} ? ${sessionApp.registrationAddress} : ${sessionApp.domicileAddress}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.step6.card_type} + ' :'">Kartın növü :</label>
+                                    <div class="permanent-value" th:text="${cardProductName}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.step6.branch} + ' :'">Kartı almaq istədiyiniz filial :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.branchName}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.step6.urgent} + ' :'">Təcili sifariş :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.urgent} ? #{label.general.yes} : #{label.general.no}"></div>
+                                </div>
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.step6.amount_to_pay} + ' :'">Ödənilməli məbləğ :</label>
+                                    <div class="permanent-value" th:text="${sessionApp.amountToPay} + ' AZN'"></div>
+                                </div>
+                            </div>
+                            <div class="buttons-group">
+                                <input type="submit" name="cancel" class="btn btn--light" th:value="#{label.general.cancel}">
+                                <input type="submit" name="pay" class="btn" th:value="#{label.general.pay}">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+</body>
+</html>

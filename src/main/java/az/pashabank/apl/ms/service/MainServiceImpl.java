@@ -26,7 +26,6 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,7 +33,6 @@ import org.springframework.validation.ObjectError;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -123,7 +121,17 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public CardPrice getCardPriceByCardProductId(int cardProductId) {
-        return repositories.getCardPriceRepo().findCardPriceByCardProductId(cardProductId);
+        return repositories.getCardPriceRepo().findCardPriceByCardProductIdAndPeriod(cardProductId, 3);
+    }
+
+    @Override
+    public List<CardProduct> getCardProductList() {
+        List<CardProduct> cardProductList = repositories.getCardProductRepo().findAllByActiveTrueAndCardSaleTrue();
+        cardProductList = cardProductList.stream().map(cardProduct -> {
+            CardPrice cardPrice = repositories.getCardPriceRepo().findCardPriceByCardProductIdAndPeriod(cardProduct.getId(), 3);
+            return new CardProduct(cardProduct.getId(), cardProduct.getName(), cardProduct.getUrgency(), cardPrice.getLcyAmount());
+        }).collect(Collectors.toList());
+        return cardProductList;
     }
 
     @Override

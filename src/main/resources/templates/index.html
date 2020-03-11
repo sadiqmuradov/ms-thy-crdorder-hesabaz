@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/media/plugins/niceSelect/nice-select.css}">
     <link rel="stylesheet" th:href="@{/media/css/style.css}">
 
-    <title>PashaBank THY Miles & Smiles Card Order | Şəxsi məlumat</title>
+    <title th:text="#{label.index.title}">PashaBank THY Miles & Smiles Card Order | Şəxsi məlumat</title>
 </head>
 <body>
     <div class="page-content step-1-content">
@@ -62,40 +62,40 @@
         <!-- Header-end -->
         <div class="content-inner">
             <div class="container">
-                <h1 class="page-heading" th:text="#{label.index.online_application}">Onlayn müraciət</h1>
+                <h1 class="page-heading" th:text="#{label.general.online_application}">Onlayn müraciət</h1>
                 <div class="main-block">
                     <div class="steps-all">
                         <div class="steps__item steps__item--active">
                             <span class="steps-item__number">1</span>
-                            <span class="steps-item__title" th:text="#{label.index.personal_info}">Şəxsi məlumat</span>
+                            <span class="steps-item__title" th:text="#{label.general.personal_info}">Şəxsi məlumat</span>
                         </div>
                         <div class="steps__item">
                             <span class="steps-item__number">2</span>
-                            <span class="steps-item__title" th:text="#{label.index.address_contact_info}">Ünvan və əlaqə vasitələri</span>
+                            <span class="steps-item__title" th:text="#{label.general.address_contact_info}">Ünvan və əlaqə vasitələri</span>
                         </div>
                         <div class="steps__item">
                             <span class="steps-item__number">3</span>
-                            <span class="steps-item__title" th:text="#{label.index.tk_no}">TK nömrə</span>
+                            <span class="steps-item__title" th:text="#{label.general.tk_no}">TK nömrə</span>
                         </div>
                         <div class="steps__item">
                             <span class="steps-item__number">4</span>
-                            <span class="steps-item__title" th:text="#{label.index.required_documents}">Sənədlər</span>
+                            <span class="steps-item__title" th:text="#{label.general.required_documents}">Lazımi sənədlər</span>
                         </div>
                         <div class="steps__item">
                             <span class="steps-item__number">5</span>
-                            <span class="steps-item__title" th:text="#{label.index.anket_info}">Anket məlumatları</span>
+                            <span class="steps-item__title" th:text="#{label.general.anket_info}">Anket məlumatları</span>
                         </div>
                         <div class="steps__item">
                             <span class="steps-item__number">6</span>
-                            <span class="steps-item__title" th:text="#{label.index.card_info}">Kart məlumatları</span>
+                            <span class="steps-item__title" th:text="#{label.general.card_info}">Kart məlumatları</span>
                         </div>
                         <div class="steps__item">
                             <span class="steps-item__number">7</span>
-                            <span class="steps-item__title" th:text="#{label.index.confirmation_of_order}">Məlumatların yoxlanışı</span>
+                            <span class="steps-item__title" th:text="#{label.general.confirmation_of_order}">Məlumatların yoxlanışı</span>
                         </div>
                     </div>
                     <div class="form-wrapper">
-                        <h2 class="step-heading" th:text="#{label.index.personal_info}">Şəxsi məlumat</h2>
+                        <h2 class="step-heading" th:text="#{label.general.personal_info}">Şəxsi məlumat</h2>
                         <form action="index" th:object="${app}" method="post">
                             <div class="form-groups__row">
                                 <div class="form-group">
@@ -145,7 +145,7 @@
                             <div class="form-groups__row">
                                 <div class="form-group">
                                     <label for="male" th:text="#{label.index.gender}">Cinsi</label>
-                                    <div class="form-group">
+                                    <div class="form-group__row">
                                         <div class="checks-group">
                                             <div class="checks-group__item">
                                                 <input type="radio" id="male" class="form-check-input" th:field="*{gender}" value="M">
@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                             <div class="buttons-group">
-                                <input type="submit" class="btn" value="İrəli">
+                                <input type="submit" class="btn" th:value="#{label.general.next}">
                             </div>
                         </form>
                     </div>

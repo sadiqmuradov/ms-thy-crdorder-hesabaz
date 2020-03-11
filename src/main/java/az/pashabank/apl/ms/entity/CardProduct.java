@@ -22,6 +22,8 @@ public class CardProduct {
     private Date createDate;
     private Date lastUpdate;
     private boolean active;
+    private boolean couponSale;
+    private boolean cardSale;
     @Transient
     private int price;
 

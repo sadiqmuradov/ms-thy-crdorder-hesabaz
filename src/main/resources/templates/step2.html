@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <link rel="stylesheet" th:href="@{/media/fonts/Rubik_Az/stylesheet.css}">
+    <link rel="stylesheet" th:href="@{/media/plugins/niceSelect/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/media/css/style.css}">
+
+    <title th:text="#{label.step2.title}">PaşaBank THY Miles & Smiles Kart Sifarişi | Ünvan və Əlaqə Vasitələri</title>
+</head>
+<body>
+    <div class="page-content step-2-content">
+        <!-- Header-start -->
+        <header class="header-form">
+            <div class="container">
+                <div class="header-top">
+                    <div class="header-top__left-col">
+                        <div class="logo">
+                            <a href="https://www.pashabank.az/lang,az/" target="_blank" title="Pasha Bank">
+                              <picture>
+                                <source srcset="media/img/pashabank_logo_white_375_wm.png" media="(max-width: 639px)">
+                                <img th:src="@{/media/img/pashabank_logo_white.png}" alt="PAŞABank logo">
+                              </picture>
+                            </a>
+                        </div>
+                        <div class="logo-thy-miles-smiles">
+                            <a href="https://www.milesandsmiles.net/" target="_blank" title="Pasha Bank">
+                              <picture>
+                                <source srcset="media/img/thy_miles_smiles_logo_white_375_wm.png" media="(max-width: 639px)">
+                                <img th:src="@{/media/img/thy_miles_smiles_logo_white.png}" alt="Miles&amp;Smiles | Türk Hava Yolları ®">
+                              </picture>  
+                            </a>
+                        </div>
+                        <div class="hesab-az-logo">
+                            <a href="https://hesab.az/" target="_blank">
+                                <img th:src="@{/media/img/hesab-logo.svg}" alt="hesab.az">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="header-top__right-col">
+                        <div class="lang header-lang">
+                            <b th:if="${lcl == 'az'}">AZ</b>
+                            <b th:if="${lcl == 'en'}">EN</b>
+                            <b th:if="${lcl == 'ru'}">RU</b>
+                            <picture><img th:src="@{/media/img/Icon_Down_1x.png}" alt="dropdown-image"></picture>
+                            <div class="other-langs">
+                                <a th:if="${lcl == 'az'}" th:href="@{step2(lang=en)}" class="language-link">EN</a>
+                                <a th:if="${lcl == 'az'}" th:href="@{step2(lang=ru)}" class="language-link">RU</a>
+                                <a th:if="${lcl == 'en'}" th:href="@{step2(lang=az)}" class="language-link">AZ</a>
+                                <a th:if="${lcl == 'en'}" th:href="@{step2(lang=ru)}" class="language-link">RU</a>
+                                <a th:if="${lcl == 'ru'}" th:href="@{step2(lang=az)}" class="language-link">AZ</a>
+                                <a th:if="${lcl == 'ru'}" th:href="@{step2(lang=en)}" class="language-link">EN</a>
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </header>
+        <!-- Header-end -->
+        <div class="content-inner">
+            <div class="container">
+                <h1 class="page-heading" th:text="#{label.general.online_application}">Onlayn müraciət</h1>
+                <div class="main-block">
+                    <div class="steps-all">
+                        <div class="steps__item steps__item--success">
+                            <span class="steps-item__number">1</span>
+                            <span class="steps-item__title" th:text="#{label.general.personal_info}">Şəxsi məlumat</span>
+                        </div>
+                        <div class="steps__item steps__item--active">
+                            <span class="steps-item__number">2</span>
+                            <span class="steps-item__title" th:text="#{label.general.address_contact_info}">Ünvan və əlaqə vasitələri</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">3</span>
+                            <span class="steps-item__title" th:text="#{label.general.tk_no}">TK nömrə</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">4</span>
+                            <span class="steps-item__title" th:text="#{label.general.required_documents}">Lazımi sənədlər</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">5</span>
+                            <span class="steps-item__title" th:text="#{label.general.anket_info}">Anket məlumatları</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">6</span>
+                            <span class="steps-item__title" th:text="#{label.general.card_info}">Kart məlumatları</span>
+                        </div>
+                        <div class="steps__item">
+                            <span class="steps-item__number">7</span>
+                            <span class="steps-item__title" th:text="#{label.general.confirmation_of_order}">Məlumatların yoxlanışı</span>
+                        </div>
+                    </div>
+                    <div class="form-wrapper">
+                        <h2 class="step-heading" th:text="#{label.general.address_contact_info}">Ünvan və əlaqə vasitələri</h2>
+                        <form th:action="@{/step2}" th:object="${app}" method="post">
+                            <div class="form-groups__row">
+                                <div class="form-group">
+                                    <label th:text="#{label.step2.city}">Şəhər</label>
+                                    <select th:field="*{registrationCity}" class="form-control">
+                                        <option th:each="city : ${cityList}"
+                                                th:value="${city.code}"
+                                                th:text="${city.name}"></option>
+                                    </select>
+                                    <span th:if="${#fields.hasErrors('registrationCity')}" th:errors="*{registrationCity}" class="inputs-error">Xana doldurulmalıdır</span>
+                                </div>
+                                <div class="form-group">
+                                    <label th:text="#{label.step2.mobile_no}">Mobil nömrə</label>
+                                    <input type="text" th:field="*{mobileNumber}" class="form-control" placeholder="+994xxxxxxxxx">
+                                    <span th:if="${#fields.hasErrors('mobileNumber')}" th:errors="*{mobileNumber}" class="inputs-error">Xana doldurulmalıdır</span>
+                                </div>
+                            </div>
+                            <div class="form-groups__row">
+                                <div class="form-group">
+                                    <label th:text="#{label.step2.registration_address}">Qeydiyyat ünvanı</label>
+                                    <input type="text" th:field="*{registrationAddress}" class="form-control" th:placeholder="#{placeholder.step2.registration_address}">
+                                    <span th:if="${#fields.hasErrors('registrationAddress')}" th:errors="*{registrationAddress}" class="inputs-error">Xana doldurulmalıdır</span>
+                                </div>
+                                <div class="form-group">
+                                    <label th:text="#{label.step2.email}">E-poçt ünvanı</label>
+                                    <input type="email" th:field="*{email}" class="form-control" th:placeholder="#{placeholder.step2.email}">
+                                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="inputs-error">Xana doldurulmalıdır</span>
+                                </div>
+                            </div>
+                            <div class="form-groups__row">
+                                <div class="form-group form-group--full-width">  
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="domicileSame" name="domicileSame" class="form-check-input" th:checked="${isDomicileSame}">
+                                        <label for="domicileSame" th:text="#{label.step2.domicile_same}">Faktiki ünvan qeydiyyat ünvan ilə eynidir</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="checkRow" class="form-groups__row" th:classappend="${isDomicileSame ? 'd-none' : ''}">
+                                <div class="form-group form-group--full-width">
+                                    <label th:text="#{label.step2.domicile_address}">Faktiki ünvan</label>
+                                    <input type="text" th:field="*{domicileAddress}" class="form-control" th:placeholder="#{placeholder.step2.domicile_address}">
+                                    <span th:if="${#fields.hasErrors('domicileAddress')}" th:errors="*{domicileAddress}" class="inputs-error">Xana doldurulmalıdır</span>
+                                </div>
+                            </div>
+                            <div class="buttons-group">
+                                <input type="submit" name="back" class="btn btn--light" th:value="#{label.general.back}">
+                                <input type="submit" name="next" class="btn" th:value="#{label.general.next}">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/media/plugins/niceSelect/jquery.nice-select.js}"></script>
+    <script th:src="@{/media/js/script.js}"></script>
+
+    <script>
+        $(function () {
+            $(':checkbox').change(function() {
+                $('#checkRow').toggleClass('d-none');
+            });
+        });
+    </script>
+
+</body>
+</html>

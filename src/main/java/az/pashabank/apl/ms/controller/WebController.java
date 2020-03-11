@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -184,7 +183,7 @@ public class WebController {
             reloadStep1(model, locale);
             return "index";
         }
-        if (!app.isTkNoAvailable()) {
+        /*if (!app.isTkNoAvailable()) {
             app.setBirthDate(sessionApp.getBirthDate());
             app.setMobileNumber(sessionApp.getMobileNumber());
             app.setEmail(sessionApp.getEmail());
@@ -196,7 +195,7 @@ public class WebController {
             model.addAttribute("lcl", locale.getLanguage());
             model.addAttribute("isTkNoAvailable", app.isTkNoAvailable());
             return "step3";
-        }
+        }*/
         setStep3SessionApp(app, sessionApp);
         sessionApp.setStep(3);
         mainService.saveApplication(sessionApp);
@@ -352,13 +351,12 @@ public class WebController {
 
     private void reloadStep6(Model model, Locale locale, ThyApplication app) {
         model.addAttribute("lcl", locale.getLanguage());
-        List<CardProduct> cardProductList = Arrays.asList(
+        /*List<CardProduct> cardProductList = Arrays.asList(
                 new CardProduct(4590, "BLACK", 10, 250),
                 new CardProduct(4684, "ELITE", 10, 600)
-        );
+        );*/
+        List<CardProduct> cardProductList = mainService.getCardProductList();
         model.addAttribute("cardProductList", cardProductList);
-        boolean emptyProductId = app.getCardProductId() == 0;
-        model.addAttribute("emptyProductId", emptyProductId);
         List<Branch> branchList = mainService.getBranchList(locale.getLanguage());
         model.addAttribute("branchList", branchList);
         boolean emptyBranch = app.getBranchCode() != null ? app.getBranchCode().trim().isEmpty() : true;
