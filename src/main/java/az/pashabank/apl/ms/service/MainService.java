@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 public interface MainService {
 
@@ -25,6 +24,7 @@ public interface MainService {
     List<CRSQuestion> getCRSQuestionList(String lang);
     CardProduct getCardProductById(int id);
     CardPrice getCardPriceByCardProductId(int cardProductId);
+    List<CardProduct> getCardProductList();
     List<Branch> getBranchList(String lang);
     Branch getBranchByCodeAndLang(String branchCode, String lang);
     Payment getPaymentByEcommTransId(String ecommTransId);

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <title>PashaBank THY Miles & Smiles Card Order | Ünvan və əlaqə vasitələri</title>
+</head>
+<body>
+<div class="container my-3">
+    <h2 class="mb-4 d-flex justify-content-center">Ünvan və əlaqə vasitələri</h2>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form action="#" th:action="@{/step2}" th:object="${app}" method="post" sty>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Şəhər</label>
+                        <select th:field="*{registrationCity}" class="form-control">
+                            <option th:each="city : ${cityList}"
+                                    th:value="${city.code}"
+                                    th:text="${city.name}"></option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('registrationCity')}" th:errors="*{registrationCity}" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Mobil nömrə</label>
+                        <input type="text" th:field="*{mobileNumber}" class="form-control" placeholder="+994xxxxxxxxx">
+                        <span th:if="${#fields.hasErrors('mobileNumber')}" th:errors="*{mobileNumber}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Qeydiyyat ünvanı</label>
+                        <input type="text" th:field="*{registrationAddress}" class="form-control"
+                               placeholder="Qeydiyyat ünvanınızı daxil edin">
+                        <span th:if="${#fields.hasErrors('registrationAddress')}"
+                              th:errors="*{registrationAddress}" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>E-poçt ünvanı</label>
+                        <input type="email" th:field="*{email}" class="form-control" placeholder="Elektron ünvanınızı qeyd edin">
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col form-group form-check">
+                        <input type="checkbox" id="domicileSame" name="domicileSame" class="form-check-input" th:checked="${isDomicileSame}">
+                        <label class="form-check-label" for="domicileSame">Faktiki ünvan qeydiyyat ünvan ilə eynidir</label>
+                    </div>
+                </div>
+                <div id="checkRow" class="row" th:classappend="${isDomicileSame ? 'd-none' : ''}">
+                    <div class="col form-group">
+                        <label>Faktiki ünvan</label>
+                        <input type="text" th:field="*{domicileAddress}" class="form-control"
+                               placeholder="Faktiki ünvanınızı daxil edin">
+                        <span th:if="${#fields.hasErrors('domicileAddress')}"
+                              th:errors="*{domicileAddress}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-3">
+                        <input type="submit" name="next" class="btn btn-primary float-right" value="İrəli">
+                        <input type="submit" name="back" class="btn btn-danger float-right mr-3" value="Geri">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(function () {
+        $(':checkbox').change(function() {
+            $('#checkRow').toggleClass('d-none');
+        });
+    });
+</script>
+</body>
+</html>

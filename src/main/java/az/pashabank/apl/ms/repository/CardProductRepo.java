@@ -10,4 +10,5 @@ import java.util.List;
 public interface CardProductRepo extends JpaRepository<CardProduct, Integer> {
 
     CardProduct findCardProductByIdAndActiveTrue(int id);
+    List<CardProduct> findAllByActiveTrueAndCardSaleTrue();
 }
