@@ -6,6 +6,8 @@ import az.pashabank.apl.ms.entity.CRSQuestion;
 import az.pashabank.apl.ms.entity.CardProduct;
 import az.pashabank.apl.ms.entity.City;
 import az.pashabank.apl.ms.entity.Country;
+import az.pashabank.apl.ms.entity.NetGrossIncomeEntity;
+import az.pashabank.apl.ms.entity.SourceOfIncomeEntity;
 import az.pashabank.apl.ms.entity.ThyApplication;
 import az.pashabank.apl.ms.entity.UploadWrapper;
 import az.pashabank.apl.ms.logger.MainLogger;
@@ -289,6 +291,10 @@ public class WebController {
         List<CRSQuestion> crsQuestionsList = mainService.getCRSQuestionList(locale.getLanguage());
         model.addAttribute("crsQuestionList", crsQuestionsList);
         model.addAttribute("anketAnswers", app.getAnketAnswers());
+        List<NetGrossIncomeEntity> netGrossIncomesList = mainService.getNetGrossIncomesByLang(locale.getLanguage());
+        model.addAttribute("netGrossIncomesList", netGrossIncomesList);
+        List<SourceOfIncomeEntity> sourcesOfIncomeList = mainService.getSourcesOfIncomeByLang(locale.getLanguage());
+        model.addAttribute("sourcesOfIncomeList", sourcesOfIncomeList);
     }
 
     @PostMapping(value = "/step5", params = {"next"})

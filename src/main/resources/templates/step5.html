@@ -6,6 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <link rel="stylesheet" th:href="@{/media/fonts/Rubik_Az/stylesheet.css}">
+    <link rel="stylesheet" th:href="@{/media/plugins/niceSelect/nice-select.css}">
     <link rel="stylesheet" th:href="@{/media/css/style.css}">
 
     <title th:text="#{label.step5.title}">PaşaBank THY Miles & Smiles Kart Sifarişi | Anket Məlumatları</title>
@@ -97,12 +98,12 @@
                         <h2 class="step-heading" th:text="#{label.general.anket_info}">Anket məlumatları</h2>
                         <form th:action="@{/step5}" th:object="${app}" method="post">
                             <div class="form-groups__row" th:each="crsQuestion, iStat : ${crsQuestionList}">
-                                <div class="form-group form-group--full-width">
+                                <div class="form-group" th:classappend="${iStat.index &lt; 11} ? 'form-group--full-width' : ''">
                                     <label>
                                         <span th:text="${iStat.index + 1} + '.'"></span>
                                         <span th:text="${crsQuestion.question}"></span>
                                     </label>
-                                    <div class="checks-group">
+                                    <div th:if="${iStat.index &lt; 11}" class="checks-group">
                                         <div class="checks-group__item">
                                             <input type="radio" class="form-check-input" th:field="*{anketAnswers[__${iStat.index}__]}" value="1" th:onchange="|toggleAnketDesc(${iStat.index + 1}, 'show')|">
                                             <label class="form-check-label" th:text="#{label.general.yes}">Bəli</label>
@@ -117,13 +118,25 @@
                                                   th:errors="*{anketAnswers[__${iStat.index}__]}" class="inputs-error"></span>
                                         </div>
                                     </div>
-                                    <div th:id="'anketDescs' + ${iStat.index + 1}" class="form-group--full-width" th:classappend="${anketAnswers[iStat.index] != 1} ? 'd-none' : ''">
+                                    <div th:if="${iStat.index &lt; 11}" th:id="'anketDescs' + ${iStat.index + 1}" class="form-group--full-width" th:classappend="${anketAnswers[iStat.index] != 1} ? 'd-none' : ''">
                                         <div th:if="${!#strings.isEmpty(crsQuestion.addquestion)}">
                                             <label th:text="${crsQuestion.addquestion}"></label>
                                             <input type="text" th:field="*{anketDescs[__${iStat.index}__]}" class="form-control">
                                             <span th:if="${#fields.hasErrors('anketDescs[__${iStat.index}__]')}" th:errors="*{anketDescs[__${iStat.index}__]}" class="inputs-error"></span>
                                         </div>
                                     </div>
+                                    <select th:if="${iStat.index == 11 or iStat.index == 12}" th:field="*{anketAnswers[__${iStat.index}__]}" class="form-control">
+                                        <option th:each="netGrossIncome : ${netGrossIncomesList}"
+                                                th:value="${netGrossIncome.id}"
+                                                th:text="${netGrossIncome.text}">
+                                        </option>
+                                    </select>
+                                    <select th:if="${iStat.index == 13}" th:field="*{anketAnswers[__${iStat.index}__]}" class="form-control">
+                                        <option th:each="sourceOfIncome : ${sourcesOfIncomeList}"
+                                                th:value="${sourceOfIncome.id}"
+                                                th:text="${sourceOfIncome.text}">
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-groups__row">
@@ -159,6 +172,8 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/media/plugins/niceSelect/jquery.nice-select.js}"></script>
+    <script th:src="@{/media/js/script.js}"></script>
 
     <script>
         function toggleAnketDesc(idx, ind) {

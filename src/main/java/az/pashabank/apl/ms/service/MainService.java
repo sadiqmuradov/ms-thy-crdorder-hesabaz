@@ -6,6 +6,8 @@ import az.pashabank.apl.ms.entity.CardPrice;
 import az.pashabank.apl.ms.entity.CardProduct;
 import az.pashabank.apl.ms.entity.City;
 import az.pashabank.apl.ms.entity.Country;
+import az.pashabank.apl.ms.entity.NetGrossIncomeEntity;
+import az.pashabank.apl.ms.entity.SourceOfIncomeEntity;
 import az.pashabank.apl.ms.entity.ThyApplication;
 import az.pashabank.apl.ms.model.OperationResponse;
 import az.pashabank.apl.ms.model.Payment;
@@ -22,6 +24,8 @@ public interface MainService {
     List<City> getCityList(String countryCode);
     City getCityByCountryCodeAndCode(String countryCode, String code);
     List<CRSQuestion> getCRSQuestionList(String lang);
+    List<NetGrossIncomeEntity> getNetGrossIncomesByLang(String lang);
+    List<SourceOfIncomeEntity> getSourcesOfIncomeByLang(String lang);
     CardProduct getCardProductById(int id);
     CardPrice getCardPriceByCardProductId(int cardProductId);
     List<CardProduct> getCardProductList();

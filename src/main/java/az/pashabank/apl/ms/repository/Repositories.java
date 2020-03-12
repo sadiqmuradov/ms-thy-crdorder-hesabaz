@@ -47,4 +47,10 @@ public class Repositories {
     @Autowired
     private CRSAnswerRepo crsAnswerRepo;
 
+    @Autowired
+    private NetGrossIncomeRepo netGrossIncomeRepo;
+
+    @Autowired
+    private SourceOfIncomeRepo sourceOfIncomeRepo;
+
 }
