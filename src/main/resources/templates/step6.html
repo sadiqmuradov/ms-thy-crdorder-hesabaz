@@ -101,7 +101,7 @@
                                 <div class="form-group">
                                     <label th:text="#{label.step6.card_type}">Kartın növü</label>
                                     <select id="cardProductId" th:field="*{cardProductId}" class="form-control">
-                                        <option value="0" th:selected="${app.cardProductId == 0}">- Seçin -</option>
+                                        <option value="0" th:selected="${app.cardProductId == 0}" th:text="#{option.step6.select}">- Seçin -</option>
                                         <option th:each="cardProduct : ${cardProductList}"
                                                 th:value="${cardProduct.id}"
                                                 th:text="${cardProduct.name}"
@@ -119,7 +119,7 @@
                                 <div class="form-group">
                                     <label th:text="#{label.step6.branch}">Kartı almaq istədiyiniz filial</label>
                                     <select id="branchCode" th:field="*{branchCode}" class="form-control">
-                                        <option th:if="${emptyBranch}" value="" selected="selected">- Seçin -</option>
+                                        <option value="" th:selected="${emptyBranch}" th:text="#{option.step6.select}">- Seçin -</option>
                                         <option th:each="branch : ${branchList}"
                                                 th:value="${branch.code}"
                                                 th:text="${branch.name}">

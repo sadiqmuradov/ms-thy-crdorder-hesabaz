@@ -191,13 +191,13 @@ public class WebController {
             app.setEmail(sessionApp.getEmail());
             app.setNationality(sessionApp.getNationality());
             app.setGender(sessionApp.getGender());
-        }
+        }*/
         validator.validateStep3(app, result);
         if (result.hasErrors()) {
             model.addAttribute("lcl", locale.getLanguage());
             model.addAttribute("isTkNoAvailable", app.isTkNoAvailable());
             return "step3";
-        }*/
+        }
         setStep3SessionApp(app, sessionApp);
         sessionApp.setStep(3);
         mainService.saveApplication(sessionApp);

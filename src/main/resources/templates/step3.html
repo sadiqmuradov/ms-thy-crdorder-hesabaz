@@ -131,12 +131,12 @@
                                 <div class="form-groups__row">
                                     <div class="form-group">
                                         <label th:text="#{label.step3.password}">Şifrə</label>
-                                        <input type="password" th:field="*{password}" class="form-control" placeholder="">
+                                        <input type="password" th:field="*{password}" class="form-control" th:placeholder="#{placeholder.step3.password}">
                                         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="inputs-error">Xana doldurulmalıdır</span>
                                     </div>
                                     <div class="form-group">
                                         <label th:text="#{label.step3.password_repeat}">Təkrar şifrə</label>
-                                        <input type="password" th:field="*{passwordRepeat}" class="form-control" placeholder="Şifrənizi təkrar daxil edin">
+                                        <input type="password" th:field="*{passwordRepeat}" class="form-control" th:placeholder="#{placeholder.step3.password_repeat}">
                                         <span th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}" class="inputs-error">Xana doldurulmalıdır</span>
                                     </div>
                                 </div>
