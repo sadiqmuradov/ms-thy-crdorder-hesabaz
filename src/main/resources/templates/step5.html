@@ -98,7 +98,7 @@
                         <h2 class="step-heading" th:text="#{label.general.anket_info}">Anket məlumatları</h2>
                         <form th:action="@{/step5}" th:object="${app}" method="post">
                             <div class="form-groups__row" th:each="crsQuestion, iStat : ${crsQuestionList}">
-                                <div class="form-group" th:classappend="${iStat.index &lt; 11} ? 'form-group--full-width' : ''">
+                                <div class="form-group" th:classappend="${iStat.index &lt; 11} ? 'form-group--full-width' : ''" th:style="${iStat.index == 13 ? 'width: 400px' : ''}">
                                     <label>
                                         <span th:text="${iStat.index + 1} + '.'"></span>
                                         <span th:text="${crsQuestion.question}"></span>

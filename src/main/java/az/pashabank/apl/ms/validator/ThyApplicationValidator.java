@@ -81,61 +81,61 @@ public class ThyApplicationValidator {
 
     private void validateName(@NotNull ThyApplication app, Errors errors) {
         if (app.getName() == null || app.getName().trim().isEmpty() || !app.getName().matches(Regex.LETTERS)) {
-            errors.rejectValue("name","message.errors.invalid.name");
+            errors.rejectValue("name","message.errors.invalid.field");
         }
     }
 
     private void validateSurname(@NotNull ThyApplication app, Errors errors) {
         if (app.getSurname() == null || app.getSurname().trim().isEmpty() || !app.getSurname().matches(Regex.LETTERS)) {
-            errors.rejectValue("surname", "message.errors.invalid.surname");
+            errors.rejectValue("surname", "message.errors.invalid.field");
         }
     }
 
     private void validatePatronymic(@NotNull ThyApplication app, Errors errors) {
         if (app.getPatronymic() == null || app.getPatronymic().trim().isEmpty() || !app.getPatronymic().matches(Regex.LETTERS)) {
-            errors.rejectValue("patronymic", "message.errors.invalid.patronymic");
+            errors.rejectValue("patronymic", "message.errors.invalid.field");
         }
     }
 
     private void validateBirthDate(@NotNull ThyApplication app, Errors errors) {
         if (app.getBirthDate() == null || app.getBirthDate().trim().isEmpty() || !app.getBirthDate().matches(Regex.DATE)) {
-            errors.rejectValue("birthDate", "message.errors.invalid.birth_date");
+            errors.rejectValue("birthDate", "message.errors.invalid.field");
         }
     }
 
     private void validateResidency(@NotNull ThyApplication app, Errors errors) {
         if (app.getResidency() == null || app.getResidency().trim().isEmpty()) {
-            errors.rejectValue("residency", "message.errors.invalid.residency");
+            errors.rejectValue("residency", "message.errors.invalid.field");
         }
     }
 
     private void validateNationality(@NotNull ThyApplication app, Errors errors) {
         if (app.getNationality() == null || app.getNationality().trim().isEmpty()) {
-            errors.rejectValue("nationality", "message.errors.invalid.nationality");
+            errors.rejectValue("nationality", "message.errors.invalid.field");
         }
     }
 
     private void validateGender(@NotNull ThyApplication app, Errors errors) {
         if (app.getGender() == null || app.getGender().trim().isEmpty()) {
-            errors.rejectValue("gender", "message.errors.invalid.gender");
+            errors.rejectValue("gender", "message.errors.invalid.field");
         }
     }
 
     private void validateSecretCode(@NotNull ThyApplication app, Errors errors) {
         if (app.getSecretCode() == null || app.getSecretCode().trim().length() < 5 || app.getSecretCode().trim().length() > 8 || !app.getSecretCode().matches(Regex.NUMBER)) {
-            errors.rejectValue( "secretCode","message.errors.invalid.secret_code");
+            errors.rejectValue( "secretCode","message.errors.invalid.field");
         }
     }
 
     private void validateWorkplace(@NotNull ThyApplication app, Errors errors) {
         if (app.getWorkplace() == null || app.getWorkplace().trim().isEmpty()) {
-            errors.rejectValue("workplace", "message.errors.invalid.workplace");
+            errors.rejectValue("workplace", "message.errors.invalid.field");
         }
     }
 
     private void validatePosition(@NotNull ThyApplication app, Errors errors) {
         if (app.getPosition() == null || app.getPosition().trim().isEmpty()) {
-            errors.rejectValue("position", "message.errors.invalid.position");
+            errors.rejectValue("position", "message.errors.invalid.field");
         }
     }
 
@@ -151,45 +151,45 @@ public class ThyApplicationValidator {
 
     private void validateRegistrationCity(@NotNull ThyApplication app, Errors errors) {
         if (app.getRegistrationCity() == null || app.getRegistrationCity().trim().isEmpty()) {
-            errors.rejectValue("registrationCity", "message.errors.invalid.registration_city");
+            errors.rejectValue("registrationCity", "message.errors.invalid.field");
         }
     }
 
     private void validateRegistrationAddress(@NotNull ThyApplication app, Errors errors) {
         if (app.getRegistrationAddress() == null || app.getRegistrationAddress().trim().isEmpty()) {
-            errors.rejectValue("registrationAddress", "message.errors.invalid.registration_address");
+            errors.rejectValue("registrationAddress", "message.errors.invalid.field");
         }
     }
 
     private void validateMobileNumber(@NotNull ThyApplication app, Errors errors) {
         if (app.getMobileNumber() == null || app.getMobileNumber().trim().isEmpty() || !app.getMobileNumber().matches(Regex.PHONE)) {
-            errors.rejectValue("mobileNumber", "message.error.invalid.mobile");
+            errors.rejectValue("mobileNumber", "message.error.invalid.field");
         }
     }
 
     private void validateEmail(@NotNull ThyApplication app, Errors errors) {
         if (app.getEmail() == null || app.getEmail().trim().isEmpty() || !app.getEmail().matches(Regex.EMAIL)) {
-            errors.rejectValue("email", "message.error.invalid.email");
+            errors.rejectValue("email", "message.error.invalid.field");
         }
     }
 
     private void validateDomicileAddress(@NotNull ThyApplication app, Errors errors) {
         if (app.getDomicileAddress() == null || app.getDomicileAddress().trim().isEmpty()) {
-            errors.rejectValue("domicileAddress", "message.errors.invalid.domicile_address");
+            errors.rejectValue("domicileAddress", "message.errors.invalid.field");
         }
     }
 
     public void validateStep3(ThyApplication app, BindingResult errors) {
         if (app.isTkNoAvailable()) {
-            validateTkNo(app, errors);
+//            validateTkNo(app, errors);
         } else {
             validatePassportName(app, errors);
             validatePassportSurname(app, errors);
-            validatePassword(app, errors);
+            /*validatePassword(app, errors);
             validatePasswordRepeat(app, errors);
             if (!errors.hasErrors()) {
                 registerCustomerInThy(app, errors);
-            }
+            }*/
         }
     }
 
@@ -228,13 +228,13 @@ public class ThyApplicationValidator {
 
     private void validatePassportName(@NotNull ThyApplication app, Errors errors) {
         if (app.getPassportName() == null || app.getPassportName().trim().isEmpty()) {
-            errors.rejectValue("passportName", "message.errors.invalid.passport_name");
+            errors.rejectValue("passportName", "message.errors.invalid.field");
         }
     }
 
     private void validatePassportSurname(@NotNull ThyApplication app, Errors errors) {
         if (app.getPassportSurname() == null || app.getPassportSurname().trim().isEmpty()) {
-            errors.rejectValue("passportSurname", "message.errors.invalid.passport_surname");
+            errors.rejectValue("passportSurname", "message.errors.invalid.field");
         }
     }
 
@@ -442,7 +442,7 @@ public class ThyApplicationValidator {
     private CardProduct validateCardProductId(@NotNull ThyApplication app, BindingResult errors) {
         CardProduct cardProduct = null;
         if (app.getCardProductId() == 0) {
-            errors.rejectValue("cardProductId", "message.errors.invalid.card_type");
+            errors.rejectValue("cardProductId", "message.errors.invalid.field");
         } else {
             cardProduct = mainService.getCardProductById(app.getCardProductId());
             if (cardProduct == null) {
@@ -453,7 +453,9 @@ public class ThyApplicationValidator {
     }
 
     protected void validateBranchCode(@NotNull ThyApplication app, Errors errors, Locale locale) {
-        if (app.getBranchCode() == null || app.getBranchCode().trim().isEmpty() || !isBranchCodeVerified(app, locale.getLanguage())) {
+        if (app.getBranchCode() == null || app.getBranchCode().trim().isEmpty()) {
+            errors.rejectValue("branchCode", "message.errors.invalid.field");
+        } else if (!isBranchCodeVerified(app, locale.getLanguage())) {
             errors.rejectValue("branchCode", "message.errors.invalid.branch_code");
         }
     }

@@ -127,8 +127,8 @@
                                 <div class="form-group">
                                     <label th:text="#{label.index.residency}">Rezidentlik statusu</label>
                                     <select th:field="*{residency}" class="form-control">
-                                        <option value="Rezident" selected="selected">Rezident</option>
-                                        <option value="Qeyri-rezident">Qeyri-rezident</option>
+                                        <option th:value="#{option.index.resident}" selected="selected" th:text="#{option.index.resident}">Rezident</option>
+                                        <option th:value="#{option.index.non-resident}" th:text="#{option.index.non-resident}">Qeyri-rezident</option>
                                     </select>
                                     <span th:if="${#fields.hasErrors('residency')}" th:errors="*{residency}" class="inputs-error">Xana doldurulmalıdir</span>
                                 </div>
@@ -151,11 +151,11 @@
                                         <div class="checks-group">
                                             <div class="checks-group__item">
                                                 <input type="radio" id="male" class="form-check-input" th:field="*{gender}" value="M">
-                                                <label for="male" class="form-check-label">Kişi</label>
+                                                <label for="male" class="form-check-label" th:text="#{label.general.male}">Kişi</label>
                                             </div>
                                             <div class="checks-group__item">
                                                 <input type="radio" id="female" class="form-check-input" th:field="*{gender}" value="F">
-                                                <label for="female" class="form-check-label">Qadın</label>
+                                                <label for="female" class="form-check-label" th:text="#{label.general.female}">Qadın</label>
                                             </div>
                                         </div>
                                     </div>

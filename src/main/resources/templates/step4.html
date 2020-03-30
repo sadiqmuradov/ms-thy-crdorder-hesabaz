@@ -101,8 +101,9 @@
                                 <div class="form-group form-group--full-width">
                                 	<div class="form-group__description">
                                 		<span class="form-group-description__title" th:text="#{label.step4.description_title}">Şəxsiyyəti təsdiq edən sənədin və xarici pasportun yüklənməsi (maks. 3 MB)</span>
-                                		<span class="form-group-description__subtitle" th:text="#{label.step4.description_subtitle}">Ş/V-si 2 fayldan ibarət olduqda hər 2 faylı birlikdə seçməyiniz xahiş olunur.</span>
-                                	</div>  
+                                		<span class="form-group-description__subtitle" th:text="#{label.step4.description_subtitle}">Ş/V-si 2 fayldan ibarət olduqda hər 2 faylı birlikdə seçməyiniz xahiş olunur. (format: JPEG, PNG, PDF)</span>
+                                        <span class="form-group-description__subtitle" th:text="#{label.step4.accepted_format}">Format: JPEG, PNG, PDF</span>
+                                	</div>
 									<input type="file" th:field="*{uploads}" class="form-control-file" multiple="multiple">
                                     <span th:if="${#fields.hasErrors('uploads')}" th:errors="*{uploads}" class="inputs-error"></span>
                                 </div>
