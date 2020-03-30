@@ -163,13 +163,13 @@ public class ThyApplicationValidator {
 
     private void validateMobileNumber(@NotNull ThyApplication app, Errors errors) {
         if (app.getMobileNumber() == null || app.getMobileNumber().trim().isEmpty() || !app.getMobileNumber().matches(Regex.PHONE)) {
-            errors.rejectValue("mobileNumber", "message.error.invalid.field");
+            errors.rejectValue("mobileNumber", "message.errors.invalid.field");
         }
     }
 
     private void validateEmail(@NotNull ThyApplication app, Errors errors) {
         if (app.getEmail() == null || app.getEmail().trim().isEmpty() || !app.getEmail().matches(Regex.EMAIL)) {
-            errors.rejectValue("email", "message.error.invalid.field");
+            errors.rejectValue("email", "message.errors.invalid.field");
         }
     }
 
